@@ -5,10 +5,10 @@ El archivo .zip contiene todas las carpetas y ficheros para lanzar la aplicació
 Se debe lanzar el fichero ejecuta.bat en Windows, para Linux y macOS se debe crear un fichero .sh
 
 Fichero .bat Windows:
-    java --module-path "./lib" --add-modules javafx.controls,javafx.fxml -jar appFX.jar
+java --module-path "./lib" --add-modules javafx.controls,javafx.fxml -jar appFX.jar
     
 Fichero .sh para Linux:
-    #!/bin/bash
+#!/bin/bash
     # -*- ENCODING: UTF-8 -*-
     java --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar appFX.jar
 
