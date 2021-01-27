@@ -16,6 +16,7 @@ Si deseas ejecutar la aplicación en distintos S.O. debes realizar la siguiente:
 - Reemplazar la carpeta BIN de nuestra carpeta Proyecto por la nueva 
 
 Para la compilación es necesario insertar estas instrucciones en el BUILD:
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
