@@ -16,7 +16,7 @@ Si deseas ejecutar la aplicación en distintos S.O. debes realizar la siguiente:
 - Reemplazar la carpeta BIN de nuestra carpeta Proyecto por la nueva 
 
 Para la compilación es necesario insertar estas instrucciones en el BUILD:
-
+/*****************************
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Pruebas_Login_JavaFX" default="default" basedir=".">
     <description>Builds, tests, and runs the project Pruebas_Login_JavaFX.</description>
@@ -46,3 +46,5 @@ Para la compilación es necesario insertar estas instrucciones en el BUILD:
 </target>
     
 </project>
+
+*/////
