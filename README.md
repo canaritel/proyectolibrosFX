@@ -3,6 +3,7 @@
 Para ejecutar el proyecto deben incluir 2 carpetas, dentro de la carpeta Proyecto tienen dichas carpetas (bin y lib ,  bd_portable es para la BD tipo fichero).
 El archivo .zip contiene todas las carpetas y ficheros para lanzar la aplicación en Windows.  
 Se debe lanzar el fichero ejecuta.bat en Windows, para Linux y macOS se debe crear un fichero .sh
+
 Fichero .bat Windows:
     java --module-path "./lib" --add-modules javafx.controls,javafx.fxml -jar appFX.jar
     
