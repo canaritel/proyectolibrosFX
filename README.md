@@ -17,7 +17,7 @@ Si deseas ejecutar la aplicación en distintos S.O. debes realizar la siguiente:
 
 Para la compilación es necesario insertar estas instrucciones en el BUILD:
 
-<project name="Pruebas_Login_JavaFX" default="default" basedir=".">
+    <project name="Pruebas_Login_JavaFX" default="default" basedir=".">
     <description>Builds, tests, and runs the project Pruebas_Login_JavaFX.</description>
     <import file="nbproject/build-impl.xml"/>
     <target name="-post-jar">
@@ -29,20 +29,20 @@ Para la compilación es necesario insertar estas instrucciones en el BUILD:
         <zipgroupfileset dir="dist" includes="*.jar"/>
         <zipgroupfileset dir="dist/lib" includes="*.jar"/>
  
-  <manifest>
+    <manifest>
             <attribute name="Main-Class" value="${main.class}"/>
         </manifest>
     </jar>
  
-   <zip destfile="${store.jar}">
+    <zip destfile="${store.jar}">
         <zipfileset src="${store.dir}/temp_final.jar"
         excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
     </zip>
  
-  <delete file="${store.dir}/temp_final.jar"/>
+     <delete file="${store.dir}/temp_final.jar"/>
     <delete dir="${store.dir}/lib"/>
     <delete file="${store.dir}/README.TXT"/>
-</target>
+    </target>
     
-</project>
+    </project>
 
