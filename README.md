@@ -14,7 +14,7 @@ Fichero .sh para Linux:
 
     # -*- ENCODING: UTF-8 -*-
     
-    java --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar appFX.jar
+    java --module-path "./lib" --add-modules javafx.controls,javafx.fxml -jar appFX.jar
 
 Tienen más información en mi canal de Youtube, donde se explica el proyecto, librerías y funciones.
 https://www.youtube.com/watch?v=g3iih2picyc&list=PLzR9zFokHj4FGO6VcEyAflqURRPT5H2GK
