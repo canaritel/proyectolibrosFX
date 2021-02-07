@@ -18,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
 import negocio.AccesoNegocio;
 import negocio.MensajeFX;
 import negocio.Variables;
@@ -33,6 +34,7 @@ public class LoginVistaController implements Initializable {
     private MensajeFX mensaje;    //variable de clase MensajeFX para imprimir mensajes en pantalla
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
+    private JMetro jMetro;
 
     @FXML
     private TextField txtUsuario;
@@ -160,6 +162,11 @@ public class LoginVistaController implements Initializable {
             stage = new Stage();    //creamos la nueva ventana
             stage.setScene(scene);  //insertamos la scena en la ventaba
             stage.setTitle("Menú principal JavaFX"); //ponemos un título
+            stage.setScene(scene);
+            //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización
+            jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
+            jMetro.setScene(scene);
+            //Cargamos el resto de componentes de la vista
             stage.show();   //mostramos la nueva ventana
             //Al activar la nueva ventana es prefirible cerrar la ventana anterior abierta, para lo cual vamos a realizar los siguientes pasos
             //******* Para cerrar la ventana "anterior" realizamos estos pasos *******

@@ -1,21 +1,23 @@
 package com.myappfx;
 
+import static com.myappfx.Main.loadFXML;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+    import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
-import javafx.scene.layout.Pane;
+import jfxtras.styles.jmetro.JMetro;
 
 public class Main extends Application {
 
-    private static Pane root;  // //ventana principal madre de la cula no vamos hacer uso directo
+    //private static Pane root;  // //ventana principal madre de la cual no vamos hacer uso directo
     private static Scene scene;   //donde se produce la acción con los elementos creados
-    private static Stage stage;   //ventana actual
+    private static Stage stage;   //el maro de la ventana actual
+    private static JMetro jMetro;
 
     @Override
     public void init() {  //Primer método que se ejecuta al instanciar la clase
@@ -30,11 +32,16 @@ public class Main extends Application {
         scene = new Scene(loadFXML("/vista/LoginVista")); //sino indicamos el ancho y alto lo coge directamente del diseño establecido en el FXML
         //scene = new Scene(loadFXML("/vista/LoginVista"), 640, 480); //Podemos establecer el tamaño de la ventana, siendo incluso distinto al tamaño creado
         stage.setScene(scene);
+        //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización
+        jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
+        jMetro.setScene(scene);
+        //Cargamos el resto de componentes de la vista
         stage.setTitle("Creado en JavaFX");
+        stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
         stage.show();
         System.out.println("Método start()");
         System.out.println("Java version: " + System.getProperty("java.version") + "\nJavaFX version: " + System.getProperty("javafx.version"));
-        stage.setResizable(false);
+        
     }
 
     @Override

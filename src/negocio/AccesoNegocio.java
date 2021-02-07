@@ -3,8 +3,8 @@ package negocio;
 import datos.AccesoDAO;
 import entidades.ClassAcceso;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.swing.table.DefaultTableModel;
 
 public class AccesoNegocio {
@@ -22,8 +22,8 @@ public class AccesoNegocio {
 
     public DefaultTableModel listar() throws SQLException {
         //recorremos el arralist con los datos almacenados y creamos la tabla
-        List<ClassAcceso> lista = new ArrayList<>();
-        lista.addAll(DATOS.listar());
+        ObservableList<ClassAcceso> lista = FXCollections.observableArrayList();
+        lista.addAll(DATOS.listar(""));
 
         String[] titulos = {"Usuario", "Clave"};
         this.modeloTabla = new DefaultTableModel(null, titulos) {

@@ -25,7 +25,7 @@ public class ConnectionPool {
     public ConnectionPool() {
     }
 
-    //Establecemos un método sincronizado para evitar problemnas datos en la DB y que cree la conexión
+    //Establecemos un método sincronizado para evitar problemas de datos en la DB y que cree la conexión
     public synchronized static ConnectionPool getDataSource() {
         if (dataSource == null) {
             dataSource = new ConnectionPool();
@@ -36,8 +36,8 @@ public class ConnectionPool {
     }
 
     public Connection conectar() throws SQLException {
-        if (Variables.varLogin == false) {
-            valoresConexionPool();
+        if (Variables.varLogin == false) { //comprobamos si no estamos logeados
+            valoresConexionPool(); //llamamos al método para cargar los valores que hayamos seleccionado
         }
         return this.basicDataSource.getConnection();
     }

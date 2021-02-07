@@ -1,13 +1,18 @@
 package datos.interfaces;
 
-import java.util.List;
-
+import javafx.collections.ObservableList;
 
 public interface CrudInterface<T> {
-    public List<T> listar(String texto);
+
+    public ObservableList<T> listar(String texto); //similar al List. Especial para JavaFX
+
     public boolean insertar(T obj);
+
     public boolean actualizar(T obj);
+
     public boolean eliminar(T obj);
+
     public int total();
+
     public boolean existe(String texto);
 }

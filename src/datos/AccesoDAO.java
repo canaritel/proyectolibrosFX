@@ -1,16 +1,19 @@
 package datos;
 
 import database.ConnectionPool;
+import datos.interfaces.CrudInterface;
 import entidades.ClassAcceso;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.swing.JOptionPane;
 import negocio.Variables;
 
-public class AccesoDAO {
+public class AccesoDAO implements CrudInterface<ClassAcceso> {
 
     private final ConnectionPool CON;
     private PreparedStatement ps;
@@ -18,13 +21,13 @@ public class AccesoDAO {
     private boolean resp;
 
     public AccesoDAO() throws SQLException {
-       // CON = Conexion.getInstacia();
         CON = ConnectionPool.getDataSource();
     }
 
-    public List<ClassAcceso> listar() throws SQLException {
-        //Creamos un arrayList de tipo List donde guardar los datos de nuestra tabla
-        List<ClassAcceso> registros = new ArrayList<>();
+    @Override
+    public ObservableList<ClassAcceso> listar(String texto) {
+        //Creamos un ObservablearrayList de tipo List donde guardar los datos de nuestra tabla
+        ObservableList<ClassAcceso> registros = FXCollections.observableArrayList(); //Especia para javaFX
         // Creamos nuestra instrucción SQL, donde leemos todos los campos
         String SQL = "SELECT * FROM usuarios";
 
@@ -37,22 +40,28 @@ public class AccesoDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
-            //Para el correcto funcionamiento del Pool de conexiones
-            //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
-            //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
-            //y deberíamos verificar que conexion no es null antes de intentar cerrar
-            if (CON != null) {
-                CON.desconectar(ps.getConnection());
-            }
-            if (ps != null) {
-                ps.close();
-                rs.close();
+            try {
+                //Para el correcto funcionamiento del Pool de conexiones
+                //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
+                //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
+                //y deberíamos verificar que conexion no es null antes de intentar cerrar
+                if (CON != null) {
+                    CON.desconectar(ps.getConnection());
+                }
+                if (ps != null) {
+                    ps.close();
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return registros;
+
     }
 
-    public boolean actualizar(ClassAcceso obj) throws SQLException {
+    @Override
+    public boolean actualizar(ClassAcceso obj) {
         resp = false;
         String SQL = "UPDATE usuarios SET clave=? WHERE usuario=?";
 
@@ -66,21 +75,26 @@ public class AccesoDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
-            //Para el correcto funcionamiento del Pool de conexiones
-            //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
-            //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
-            //y deberíamos verificar que conexion no es null antes de intentar cerrar
-            if (CON != null) {
-                CON.desconectar(ps.getConnection());
-            }
-            if (ps != null) {
-                ps.close();
+            try {
+                //Para el correcto funcionamiento del Pool de conexiones
+                //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
+                //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
+                //y deberíamos verificar que conexion no es null antes de intentar cerrar
+                if (CON != null) {
+                    CON.desconectar(ps.getConnection());
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resp;
     }
 
-    public boolean eliminar(ClassAcceso obj) throws SQLException {
+    @Override
+    public boolean eliminar(ClassAcceso obj) {
         resp = false;
         String SQL = "DELETE FROM usuarios WHERE usuario=?";
 
@@ -93,21 +107,26 @@ public class AccesoDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
-            //Para el correcto funcionamiento del Pool de conexiones
-            //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
-            //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
-            //y deberíamos verificar que conexion no es null antes de intentar cerrar
-            if (CON != null) {
-                CON.desconectar(ps.getConnection());
-            }
-            if (ps != null) {
-                ps.close();
+            try {
+                //Para el correcto funcionamiento del Pool de conexiones
+                //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
+                //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
+                //y deberíamos verificar que conexion no es null antes de intentar cerrar
+                if (CON != null) {
+                    CON.desconectar(ps.getConnection());
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resp;
     }
 
-    public boolean insertar(ClassAcceso obj) throws SQLException {
+    @Override
+    public boolean insertar(ClassAcceso obj) {
         resp = false;
         String SQL = "INSERT INTO usuarios (usuario,clave) VALUES (?,?)";
 
@@ -121,21 +140,26 @@ public class AccesoDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
-            //Para el correcto funcionamiento del Pool de conexiones
-            //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
-            //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
-            //y deberíamos verificar que conexion no es null antes de intentar cerrar
-            if (CON != null) {
-                CON.desconectar(ps.getConnection());
-            }
-            if (ps != null) {
-                ps.close();
+            try {
+                //Para el correcto funcionamiento del Pool de conexiones
+                //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
+                //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
+                //y deberíamos verificar que conexion no es null antes de intentar cerrar
+                if (CON != null) {
+                    CON.desconectar(ps.getConnection());
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resp;
     }
 
-    public boolean existe(String campo) throws SQLException {
+    @Override
+    public boolean existe(String campo) {
         resp = false;
         String SQL = "SELECT * FROM usuarios WHERE usuario=?";
 
@@ -150,22 +174,59 @@ public class AccesoDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
-            //Para el correcto funcionamiento del Pool de conexiones
-            //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
-            //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
-            //y deberíamos verificar que conexion no es null antes de intentar cerrar
-            if (CON != null) {
-                CON.desconectar(ps.getConnection());
-            }
-            if (ps != null) {
-                ps.close();
-                rs.close();
+            try {
+                //Para el correcto funcionamiento del Pool de conexiones
+                //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
+                //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
+                //y deberíamos verificar que conexion no es null antes de intentar cerrar
+                if (CON != null) {
+                    CON.desconectar(ps.getConnection());
+                }
+                if (ps != null) {
+                    ps.close();
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resp;
     }
+   
+    @Override
+    public int total() {
+        int totalResistros = 0;
+        String SQL = "SELECT COUNT(usuario) FROM usuarios";
 
-    public boolean login(String user, String password) throws SQLException {
+        try {
+            ps = CON.conectar().prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                totalResistros = rs.getInt("COUNT(usuario)");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            try {
+                //Para el correcto funcionamiento del Pool de conexiones
+                //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
+                //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
+                //y deberíamos verificar que conexion no es null antes de intentar cerrar
+                if (CON != null) {
+                    CON.desconectar(ps.getConnection());
+                }
+                if (ps != null) {
+                    ps.close();
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return totalResistros;
+    }
+
+     public boolean login(String user, String password) throws SQLException {
         resp = false;
         String SQL = "SELECT * FROM usuarios WHERE usuario=? AND clave=?";
 
@@ -199,33 +260,5 @@ public class AccesoDAO {
         }
         return resp;
     }
-
-    public int total() throws SQLException {
-        int totalResistros = 0;
-        String SQL = "SELECT COUNT(usuario) FROM usuarios";
-
-        try {
-            ps = CON.conectar().prepareStatement(SQL);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                totalResistros = rs.getInt("COUNT(usuario)");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        } finally {
-            //Para el correcto funcionamiento del Pool de conexiones
-            //Hemos puesto el conexion.close() en el finally del try-catch, para asegurarnos de que la conexion se cierra
-            //independientemente de que todo vaya bien o salten excepciones. No podemos cerrar la conexion tal cual se está haciendo
-            //y deberíamos verificar que conexion no es null antes de intentar cerrar
-            if (CON != null) {
-                CON.desconectar(ps.getConnection());
-            }
-            if (ps != null) {
-                ps.close();
-                rs.close();
-            }
-        }
-        return totalResistros;
-    }
-
+    
 }
