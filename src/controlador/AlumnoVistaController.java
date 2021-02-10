@@ -31,13 +31,13 @@ import negocio.Variables;
 public class AlumnoVistaController implements Initializable {
 
     private static ObservableList<ClassAlumno> items; //instanciamos un objeto tipo arrayList especial para JavaFX
-    private static AlumnoDAO datos;  //instanciamos la clase AlumnoDAO la cual gestiona las acciones hacia nuestra BD
+    private static AlumnoDAO datos;   //instanciamos la clase AlumnoDAO la cual gestiona las acciones hacia nuestra BD
     private int posicionAlumnoTabla;  //guardaremos la posición de la fila de la tabla
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
-    private double[] posicion;  //posición de la ventana en eje X-Y
+    private double[] posicion;    //posición de la ventana en eje X-Y
     private JMetro jMetro;  //variable para cambiar la vista de la escena
-    private int registro;  //variable donde guardar datos de la tabla
+    private int registro;   //variable donde guardar datos de la tabla
     private String dni, nombre, apellido1, apellido2;  //variable donde guardar datos de la tabla
     private ClassAlumno copiaAlumno;  //objeto donde guardar datos de la tabla
 
