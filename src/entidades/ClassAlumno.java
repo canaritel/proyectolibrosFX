@@ -82,15 +82,7 @@ public class ClassAlumno {
         if (!Objects.equals(this.dni, other.dni)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
-            return false;
-        }
-        if (!Objects.equals(this.apellido1, other.apellido1)) {
-            return false;
-        }
-        if (!Objects.equals(this.apellido2, other.apellido2)) {
-            return false;
-        }
+        
         return true;
     }
 

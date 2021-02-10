@@ -1,7 +1,6 @@
 //JAVA FX//
 package controlador;
 
-import com.myappfx.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -10,7 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -31,10 +32,10 @@ import negocio.Variables;
 public class LoginVistaController implements Initializable {
 
     public AccesoNegocio CONTROL; //variable de clase CONTROL para el control de las funciones datos DAO
-    private MensajeFX mensaje;    //variable de clase MensajeFX para imprimir mensajes en pantalla
+    private MensajeFX mensaje;    //variable tipo MensajeFX para imprimir mensajes en pantalla (ver mértodo creado)
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
-    private JMetro jMetro;
+    private JMetro jMetro;        //variable para cambiar la vista de la escena
 
     @FXML
     private TextField txtUsuario;
@@ -57,12 +58,17 @@ public class LoginVistaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //En caso de usar radiobutton podemos agruparlos
+        //ToggleGroup tg = new ToggleGroup();
+        //this.radiobtnlocal.setToggleGroup(tg);
+        //this.radiobtnremoto.setToggleGroup(tg);
+        //this.radiobtnfichero.setToggleGroup(tg);
+        mensaje = new MensajeFX();  //instanciamos la clase mensaje para hacer uso de ella
     }
 
     //ESTE es el principal método de esta clase, comprobamos y validamos los datos del acceso
     @FXML
     private void comprobarAcceder(ActionEvent event) throws IOException, SQLException {
-        mensaje = new MensajeFX();  //instanciamos la clase mensaje para hacer uso de ella
         if (validarCampos()) {
             validarAcceso();
         }
@@ -146,7 +152,7 @@ public class LoginVistaController implements Initializable {
             //validamos la respuesta
             if (respuesta.equals("OK")) {
                 mensaje.printTexto("Acceso correcto", "INFO", posicionX_Y());
-                this.inicioValidado(); //iniciamos correctamente
+                this.cargarPrincipalVista(); //iniciamos correctamente
             } else {
                 mensaje.printTexto("Datos de acceso incorrectos", "ERROR", posicionX_Y());
             }
@@ -156,11 +162,17 @@ public class LoginVistaController implements Initializable {
     }
 
     //Se ejecuta si los datos de acceso han sido correctos
-    public void inicioValidado() {
+    public void cargarPrincipalVista() {
         try {
-            scene = new Scene(Main.loadFXML("/vista/PrincipalVista")); //cargamos la nueva scena
+            //cargamos la vista FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/PrincipalVista.fxml"));
+            //instanciamos y cargamos el FXML en el padre
+            Parent root = loader.load();
+            //instanciamos el controlador haciendo uso del nuevo método getController
+            PrincipalVistaController ctrPrincipal = loader.getController();
+            //creamos la nueva escena que viene del padre
+            scene = new Scene(root);
             stage = new Stage();    //creamos la nueva ventana
-            stage.setScene(scene);  //insertamos la scena en la ventaba
             stage.setTitle("Menú principal JavaFX"); //ponemos un título
             stage.setScene(scene);
             //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización

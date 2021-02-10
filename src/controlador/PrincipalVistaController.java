@@ -15,7 +15,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro.JMetro;
 
 /**
  * FXML Controller class
@@ -26,7 +25,6 @@ public class PrincipalVistaController implements Initializable {
 
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
-    private JMetro jMetro;
     private double[] posicion;  //posición de la ventana en eje X-Y
 
     @FXML
@@ -49,22 +47,22 @@ public class PrincipalVistaController implements Initializable {
 
     @FXML
     private void crearAlumno(ActionEvent event) {
-        cargarVistaAlumno(posicion);
+        this.cargarVistaAlumno();
     }
 
     @FXML
     private void buscarAlumno(ActionEvent event) {
-        cargarVistaAlumno(posicion);
+        this.cargarVistaAlumno();
     }
 
     @FXML
     private void editarAlumno(ActionEvent event) {
-        cargarVistaAlumno(posicion);
+        this.cargarVistaAlumno();
     }
 
     @FXML
     private void eliminarAlumno(ActionEvent event) {
-        cargarVistaAlumno(posicion);
+        this.cargarVistaAlumno();
     }
 
     @FXML
@@ -80,7 +78,7 @@ public class PrincipalVistaController implements Initializable {
         Platform.exit(); //Es ideal para cuando se cierre la aplicación se ejecute el proceso stop()
     }
 
-    public void cargarVistaAlumno(double[] posicion) {
+    public void cargarVistaAlumno() {
         try {
             //cargamos la vista FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AlumnoVista.fxml"));
@@ -94,20 +92,16 @@ public class PrincipalVistaController implements Initializable {
             stage.setTitle("Gestión de Alumnos"); //ponemos un título
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
-            //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización
-            //jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
-            //jMetro.setScene(scene);
             //posicionamos la nueva ventana
-            posicion = posicionX_Y();
-            posicion[0] = posicion[0] + 90;
-            posicion[1] = posicion[1] + 105;
-            stage.setX(posicion[0]);
-            stage.setY(posicion[1]);
-            //mostramos la nueva ventana y esperamos
-            
+            this.ventanaPosicion();
+            //cambiamos la opacidad de la ventana 
+            this.cambiarOpacidad(0.5);
             controladorAlumno.cargarTabla(""); //cargamos y mostramos la tabla de alumnos
-            stage.showAndWait();
-            
+            stage.showAndWait(); //mostramos la nueva ventana y esperamos
+            //El programa continua en esta línea cuando la nueva ventana se cierre
+            //Cuando regresemos quitamos la opacidad
+            this.cambiarOpacidad(1);
+
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
@@ -115,7 +109,7 @@ public class PrincipalVistaController implements Initializable {
 
     //este método obtiene la posición de la actual ventana en coordenadas x, y
     //vamos a usar estos datos para posicionar la ventana correctamente
-    public double[] posicionX_Y() {
+    public double[] obtenPosicionX_Y() {
         double[] posicionxy = new double[2];
         //creamos una nueva ventana temporal capturando de cualquier btn/lbl la escena y ventana
         //se entiende que los btn o lbl forman parte de la ventana que deseamos obtener datos
@@ -125,4 +119,16 @@ public class PrincipalVistaController implements Initializable {
         return posicionxy;
     }
 
+    public void ventanaPosicion() {
+        posicion = obtenPosicionX_Y();
+        posicion[0] = posicion[0] + 90;
+        posicion[1] = posicion[1] + 105;
+        stage.setX(posicion[0]);
+        stage.setY(posicion[1]);
+    }
+
+    public void cambiarOpacidad(double valor) {
+        Stage myStage = (Stage) this.lblTextoInferior.getScene().getWindow();
+        myStage.setOpacity(valor);
+    }
 }

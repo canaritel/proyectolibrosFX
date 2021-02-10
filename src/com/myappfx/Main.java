@@ -1,20 +1,17 @@
 package com.myappfx;
 
-import static com.myappfx.Main.loadFXML;
+import controlador.LoginVistaController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-    import javafx.scene.Parent;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.io.InputStream;
 import jfxtras.styles.jmetro.JMetro;
 
 public class Main extends Application {
 
-    //private static Pane root;  // //ventana principal madre de la cual no vamos hacer uso directo
     private static Scene scene;   //donde se produce la acción con los elementos creados
     private static Stage stage;   //el maro de la ventana actual
     private static JMetro jMetro;
@@ -29,19 +26,26 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {  //Cargamos todo lo referente a nuestra interfaz gráfica
-        scene = new Scene(loadFXML("/vista/LoginVista")); //sino indicamos el ancho y alto lo coge directamente del diseño establecido en el FXML
-        //scene = new Scene(loadFXML("/vista/LoginVista"), 640, 480); //Podemos establecer el tamaño de la ventana, siendo incluso distinto al tamaño creado
-        stage.setScene(scene);
+        //cargamos la vista FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/LoginVista.fxml"));
+        //instanciamos y cargamos el FXML en el padre
+        Parent root = loader.load();
+        //instanciamos al controlador FrmAlumnoNuevo haciendo uso del nuevo método getController
+        LoginVistaController ctrLogin = loader.getController();
+        //creamos la nueva escena que viene del padre
+        scene = new Scene(root);
+        stage = new Stage();    //creamos la nueva ventana
+        stage.setScene(scene); //establecemos la escena
         //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización
         jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
         jMetro.setScene(scene);
         //Cargamos el resto de componentes de la vista
         stage.setTitle("Creado en JavaFX");
         stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
-        stage.show();
+        stage.show(); //mostramos la ventana
         System.out.println("Método start()");
         System.out.println("Java version: " + System.getProperty("java.version") + "\nJavaFX version: " + System.getProperty("javafx.version"));
-        
+
     }
 
     @Override
@@ -56,26 +60,6 @@ public class Main extends Application {
     public void cerrar() {
         Platform.exit(); //Es ideal para cuando se cierre la aplicación se ejecute el proceso stop()
         //Es decir no tendremos que usar la función System.exit(0) ya que debemos sustituirlo por el nuevo Platform.exit()
-    }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml)); //especifica una "raíz dinámica" para el archivo FXML
-    }
-
-    public static Parent loadFXML(String fxml) throws IOException {
-        System.out.println("Cargamos el fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    public void cargarLogo() {
-        ImageView imageLogo;
-        InputStream inputStream;
-        inputStream = getClass().getResourceAsStream("/imagenes/icono_java.png");
-
-        //Image nuevaImage = inputStream;
-        //   Image imagen = new Image();
-        //  imageLogo = new ImageView(imagen);
     }
 
 }

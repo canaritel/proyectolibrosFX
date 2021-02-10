@@ -8,13 +8,15 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.AlumnoVistaController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="500.0" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.AlumnoVistaController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <HBox VBox.vgrow="ALWAYS">
          <children>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
               <tabs>
@@ -29,7 +31,7 @@
                                           <Font name="Segoe UI" size="13.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets bottom="10.0" left="50.0" right="10.0" top="20.0" />
+                                          <Insets bottom="10.0" left="35.0" right="10.0" top="20.0" />
                                        </HBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFiltrar" onKeyPressed="#pulsoEnter">
@@ -37,51 +39,86 @@
                                           <Insets top="15.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar">
+                                    <Button fx:id="btnBuscar" graphicTextGap="3.0" minWidth="75.0" mnemonicParsing="false" onAction="#buscar" text="Buscar">
                                        <HBox.margin>
-                                          <Insets left="20.0" top="15.0" />
+                                          <Insets left="20.0" top="11.0" />
                                        </HBox.margin>
                                        <font>
                                           <Font name="Segoe UI Bold" size="13.0" />
                                        </font>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_view_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
-                                    <Button fx:id="btnLimpiar" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
+                                    <Button fx:id="btnLimpiar" minWidth="85.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
                                        <font>
                                           <Font name="Segoe UI Bold" size="13.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="20.0" top="15.0" />
+                                          <Insets left="20.0" top="11.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_synchronize_36px_1.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
-                                    <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editar" text="Editar">
+                                    <Button fx:id="btnNuevo" minWidth="75.0" mnemonicParsing="false" onAction="#nuevo" text="Nuevo">
                                        <font>
                                           <Font name="Segoe UI Bold" size="13.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="20.0" top="15.0" />
+                                          <Insets left="20.0" top="11.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_add_file_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
-                                    <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#nuevo" text="Nuevo">
+                                    <Button fx:id="btnEditar" minWidth="75.0" mnemonicParsing="false" onAction="#editar" text="Editar">
                                        <font>
                                           <Font name="Segoe UI Bold" size="13.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="20.0" top="15.0" />
+                                          <Insets left="20.0" top="11.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_edit_file_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
-                                    <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" text="Eliminar">
+                                    <Button fx:id="btnEliminar" minWidth="80.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar">
                                        <font>
                                           <Font name="Segoe UI Bold" size="13.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="20.0" top="15.0" />
+                                          <Insets left="20.0" top="11.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_delete_file_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
                                  </children>
                               </HBox>
                               <HBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView fx:id="tablaAlumno" HBox.hgrow="ALWAYS">
+                                    <TableView fx:id="tablaAlumno" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
                                       <columns>
                                         <TableColumn fx:id="colRegistro" maxWidth="100.0" minWidth="100.0" prefWidth="136.0" text="Registro" />
                                         <TableColumn fx:id="ColDni" maxWidth="100.0" minWidth="100.0" prefWidth="130.0" text="DNI" />
@@ -110,11 +147,6 @@
                                  </font></Label>
                            </children>
                         </VBox>
-                     </content>
-                </Tab>
-                <Tab text="Mantenimiento">
-                     <content>
-                        <Label text="Label" />
                      </content>
                 </Tab>
               </tabs>
