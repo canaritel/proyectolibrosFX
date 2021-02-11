@@ -3,7 +3,7 @@ package datos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import database.ConnectionPool;
+import database.ConexionPool;
 import datos.interfaces.CrudInterface;
 import entidades.ClassAlumno;
 import java.util.logging.Level;
@@ -15,13 +15,13 @@ import negocio.Variables;
 
 public class AlumnoDAO implements CrudInterface<ClassAlumno> {
 
-    private final ConnectionPool CON;
+    private final ConexionPool CON;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
 
     public AlumnoDAO() {
-        CON = ConnectionPool.getDataSource();
+        CON = ConexionPool.getInstancia();
     }
 
     @Override

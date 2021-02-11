@@ -472,7 +472,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Salir">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#cerrarApliacion" text="Exit">
+                  <MenuItem mnemonicParsing="false" onAction="#cerrarAplicacion" text="Exit">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>

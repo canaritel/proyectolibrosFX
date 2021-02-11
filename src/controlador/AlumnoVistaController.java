@@ -30,8 +30,8 @@ import negocio.Variables;
 
 public class AlumnoVistaController implements Initializable {
 
-    private static ObservableList<ClassAlumno> items; //instanciamos un objeto tipo arrayList especial para JavaFX
-    private static AlumnoDAO datos;   //instanciamos la clase AlumnoDAO la cual gestiona las acciones hacia nuestra BD
+    private ObservableList<ClassAlumno> items; //instanciamos un objeto tipo arrayList especial para JavaFX
+    private AlumnoDAO datos;   //instanciamos la clase AlumnoDAO la cual gestiona las acciones hacia nuestra BD
     private int posicionAlumnoTabla;  //guardaremos la posición de la fila de la tabla
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
@@ -42,7 +42,7 @@ public class AlumnoVistaController implements Initializable {
     private ClassAlumno copiaAlumno;  //objeto donde guardar datos de la tabla
 
     @FXML
-    private TextField txtFiltrar;
+    private TextField txtFiltrarAlumnoTabla;
     @FXML
     private Button btnBuscar;
     @FXML
@@ -82,46 +82,12 @@ public class AlumnoVistaController implements Initializable {
     }
 
     @FXML
-    private void buscar(ActionEvent event) {
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
-        this.cargarTabla(txtFiltrar.getText());
-    }
-
-    @FXML
-    private void limpiar(ActionEvent event) {
-        this.limpiarVista();
-        this.cargarTabla("");
-    }
-
-    @FXML
-    private void editar(ActionEvent event) {
-        //guardamos en la variable el valor de la acción a ejecutar
-        Variables.textoFrmAlumno = "EDITAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
-        this.cargarFrmAlumno();
-    }
-
-    @FXML
-    private void nuevo(ActionEvent event) {
-        //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmAlumno = "CREAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
-        this.cargarFrmAlumno();
-    }
-
-    @FXML
-    private void eliminar(ActionEvent event) {
-        //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmAlumno = "ELIMINAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
-        this.cargarFrmAlumno();
-    }
-
-    @FXML
     private void pulsoEnter(KeyEvent event) {
         //keyPressed: cuando se pulsa ENTER en la caja de textoBuscar hacemos la acción de buscar
         Object evt = event.getSource();
-        if (evt.equals(txtFiltrar)) {
+        if (evt.equals(txtFiltrarAlumnoTabla)) {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                this.cargarTabla(txtFiltrar.getText());
+                this.cargarTabla(txtFiltrarAlumnoTabla.getText());
             }
         }
     }
@@ -131,6 +97,8 @@ public class AlumnoVistaController implements Initializable {
         //cuando nos desplazamos con el cursor por la tabla capturamos la información de la fila
         ClassAlumno claseAlumno = tablaAlumno.getSelectionModel().getSelectedItem();
         if (claseAlumno != null) {  //si no es NULL capturamos los datos de la fila
+            /*
+            **** Para copiar los datos de una clase a otra usábamos esto, pero lo vamos a cambiar por la nueva forma Patrón Prototype ****
             registro = claseAlumno.getIdRegistro();
             dni = claseAlumno.getDni();
             nombre = claseAlumno.getNombre();
@@ -138,6 +106,9 @@ public class AlumnoVistaController implements Initializable {
             apellido2 = claseAlumno.getApellido2();
             //creamos un nuevo objeto con los datos capturados
             copiaAlumno = new ClassAlumno(registro, dni, nombre, apellido1, apellido2);
+             */
+            //**** Hacemos uso del nuevo método Clonar para copiar clases ******
+            copiaAlumno = (ClassAlumno) claseAlumno.clonar();
         }
         this.btnEditar.setDisable(false);
         this.btnEliminar.setDisable(false);
@@ -148,16 +119,56 @@ public class AlumnoVistaController implements Initializable {
         //cuando pulsamos con el ratón en algún registro de la tabla capturamos la información de la fila
         ClassAlumno claseAlumno = tablaAlumno.getSelectionModel().getSelectedItem();
         if (claseAlumno != null) {  //si no es NULL capturamos los datos de la fila
+            /*
+            **** Para copiar los datos de una clase a otra usábamos esto, pero lo vamos a cambiar por la nueva forma Patrón Prototype ****
             registro = claseAlumno.getIdRegistro();
             dni = claseAlumno.getDni();
             nombre = claseAlumno.getNombre();
             apellido1 = claseAlumno.getApellido1();
             apellido2 = claseAlumno.getApellido2();
-            //creamos un nuevo objeto con los datos capturados
+            creamos un nuevo objeto con los datos capturados
             copiaAlumno = new ClassAlumno(registro, dni, nombre, apellido1, apellido2);
+             */
+            //**** Hacemos uso del nuevo método Clonar para copiar clases ******
+            copiaAlumno = (ClassAlumno) claseAlumno.clonar();
+
         }
         this.btnEditar.setDisable(false);
         this.btnEliminar.setDisable(false);
+    }
+
+    @FXML
+    private void buscarAlumnoTabla(ActionEvent event) {
+        this.btnEditar.setDisable(true);
+        this.btnEliminar.setDisable(true);
+        this.cargarTabla(txtFiltrarAlumnoTabla.getText());
+    }
+
+    @FXML
+    private void limpiarAlumnoTabla(ActionEvent event) {
+        this.limpiarVista();
+        this.cargarTabla("");
+    }
+
+    @FXML
+    private void nuevoAlumnoTabla(ActionEvent event) {
+        //guardamos en la variable el valor de la acción a ejecutar.
+        Variables.textoFrmAlumno = "CREAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        this.cargarFrmAlumno();
+    }
+
+    @FXML
+    private void editarAlumnoTabla(ActionEvent event) {
+        //guardamos en la variable el valor de la acción a ejecutar
+        Variables.textoFrmAlumno = "EDITAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        this.cargarFrmAlumno();
+    }
+
+    @FXML
+    private void eliminarAlumnoTabla(ActionEvent event) {
+        //guardamos en la variable el valor de la acción a ejecutar.
+        Variables.textoFrmAlumno = "ELIMINAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        this.cargarFrmAlumno();
     }
 
     @SuppressWarnings("unchecked")
@@ -240,9 +251,8 @@ public class AlumnoVistaController implements Initializable {
         this.cambiarOpacidad(1);
         this.btnEditar.setDisable(true);
         this.btnEliminar.setDisable(true);
-        this.txtFiltrar.setText("");
+        this.txtFiltrarAlumnoTabla.setText("");
         Variables.textoFrmAlumno = "";
     }
 
-    
 }

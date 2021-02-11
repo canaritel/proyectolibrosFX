@@ -70,11 +70,10 @@ public class PrincipalVistaController implements Initializable {
         if (stage != null) {
             stage.close();
         }
-
     }
 
     @FXML
-    private void cerrarApliacion(ActionEvent event) {
+    private void cerrarAplicacion(ActionEvent event) {
         Platform.exit(); //Es ideal para cuando se cierre la aplicación se ejecute el proceso stop()
     }
 
@@ -131,4 +130,5 @@ public class PrincipalVistaController implements Initializable {
         Stage myStage = (Stage) this.lblTextoInferior.getScene().getWindow();
         myStage.setOpacity(valor);
     }
+
 }

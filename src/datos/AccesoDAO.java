@@ -1,6 +1,6 @@
 package datos;
 
-import database.ConnectionPool;
+import database.ConexionPool;
 import datos.interfaces.CrudInterface;
 import entidades.ClassAcceso;
 import java.sql.PreparedStatement;
@@ -15,13 +15,13 @@ import negocio.Variables;
 
 public class AccesoDAO implements CrudInterface<ClassAcceso> {
 
-    private final ConnectionPool CON;
+    private final ConexionPool CON;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
 
     public AccesoDAO() throws SQLException {
-        CON = ConnectionPool.getDataSource();
+        CON = ConexionPool.getInstancia();
     }
 
     @Override

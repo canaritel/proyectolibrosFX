@@ -31,12 +31,12 @@ import negocio.Variables;
  */
 public class LoginVistaController implements Initializable {
 
-    public AccesoNegocio CONTROL; //variable de clase CONTROL para el control de las funciones datos DAO
+    private AccesoNegocio CONTROL; //variable de clase CONTROL para el control de las funciones datos DAO
     private MensajeFX mensaje;    //variable tipo MensajeFX para imprimir mensajes en pantalla (ver mértodo creado)
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private JMetro jMetro;        //variable para cambiar la vista de la escena
-
+    
     @FXML
     private TextField txtUsuario;
     @FXML
