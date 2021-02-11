@@ -27,9 +27,9 @@ public class ConexionPool {
     //This is not the only way to combine the commons-dbcp2 and commons-pool2 packages,
     //but provides a "one stop shopping" solution for basic requirements.
     public BasicDataSource basicDataSource = null;
-    ConexionMySQLLocal cml;
-    ConexionMySQLRemoto cmr;
-    ConexionH2Fichero chf;
+    private ConexionMySQLLocal conexionlocal;
+    private ConexionMySQLRemoto conexionremota;
+    private ConexionH2Fichero conexionfichero;
 
     //Vamos a usar el patrón Singleton. 
     //Si da error en el sistema de Reportes nos vemos obligados a declarar este método como público. Ver PrestamoNegocio cnn = new ConnectionPool();
@@ -48,31 +48,30 @@ public class ConexionPool {
 
     public Connection conectar() throws SQLException {
         //instanciamos las distintos tipos de conexión a la BD usando el ****** PATRÓN FACTORY *******
-        if (cml == null) {
-            cml = new ConexionMySQLLocal();
-        }
-        if (cmr == null) {
-            cmr = new ConexionMySQLRemoto();
-        }
-        if (chf == null) {
-            chf = new ConexionH2Fichero();
-        }
-
         if (Variables.varLogin == false) { //comprobamos si no estamos logeados
             //llamamos al método para cargar los valores que hayamos seleccionado
             switch (Variables.opcionCheckBox) {
                 case 1:
-                    basicDataSource = cml.getDataSource();
+                    if (conexionlocal == null) {
+                        conexionlocal = new ConexionMySQLLocal();
+                    }
+                    basicDataSource = conexionlocal.getDataSource();
                     System.out.println("Conexión MySQL Local...");
                     break;
 
                 case 2:
-                    basicDataSource = cmr.getDataSource();
+                    if (conexionremota == null) {
+                        conexionremota = new ConexionMySQLRemoto();
+                    }
+                    basicDataSource = conexionremota.getDataSource();
                     System.out.println("Conexión MySQL Remota...");
                     break;
 
                 case 3:
-                    basicDataSource = chf.getDataSource();
+                    if (conexionfichero == null) {
+                        conexionfichero = new ConexionH2Fichero();
+                    }
+                    basicDataSource = conexionfichero.getDataSource();
                     System.out.println("Conexión H2 Fichero...");
                     break;
             }

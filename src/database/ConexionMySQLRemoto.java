@@ -2,7 +2,7 @@ package database;
 
 /**
  *
- * USAMOS EL PATRÓN FACTORY
+ * USAMOS EL PATRÓN FACTORY PARA LLAMAR A ESTE MÉTODO
  *
  */
 import datos.interfaces.ConexionInterface;

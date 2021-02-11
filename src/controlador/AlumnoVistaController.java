@@ -252,7 +252,7 @@ public class AlumnoVistaController implements Initializable {
         this.btnEditar.setDisable(true);
         this.btnEliminar.setDisable(true);
         this.txtFiltrarAlumnoTabla.setText("");
-        Variables.textoFrmAlumno = "";
+        Variables.textoFrmAlumno = "";  //el texto superior que aparece al entrar en FrmAlumno
     }
 
 }
