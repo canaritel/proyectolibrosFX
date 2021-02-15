@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="500.0" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.LibroVistaController">
+   <children>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+              <tabs>
+                <Tab text="Listado">
+                     <content>
+                        <VBox>
+                           <children>
+                              <HBox maxHeight="50.0" styleClass="JMetroStyleClass.BACKGROUND" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Filtrar:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="35.0" right="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtFiltrarLibroTabla" onKeyPressed="#pulsoEnter">
+                                       <HBox.margin>
+                                          <Insets top="15.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button fx:id="btnBuscar" graphicTextGap="3.0" minWidth="75.0" mnemonicParsing="false" onAction="#buscarLibroTabla" text="Buscar">
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="11.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="13.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_view_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnLimpiar" minWidth="85.0" mnemonicParsing="false" onAction="#limpiarLibroTabla" text="Limpiar">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="11.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_synchronize_36px_1.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnNuevo" minWidth="75.0" mnemonicParsing="false" onAction="#nuevoLibroTabla" text="Nuevo">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="11.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_add_file_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEditar" minWidth="75.0" mnemonicParsing="false" onAction="#editarLibroTabla" text="Editar">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="11.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_edit_file_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnEliminar" minWidth="80.0" mnemonicParsing="false" onAction="#eliminarLibroTabla" text="Eliminar">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="11.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="22.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imagenes/icons8_delete_file_36px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TableView fx:id="tablaLibro" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
+                                      <columns>
+                                        <TableColumn fx:id="colCodigo" maxWidth="100.0" minWidth="100.0" prefWidth="136.0" text="Código" />
+                                        <TableColumn fx:id="ColTitulo" maxWidth="400.0" minWidth="120.0" prefWidth="150.0" text="Título" />
+                                          <TableColumn fx:id="ColAutor" maxWidth="350.0" minWidth="100.0" prefWidth="120.0" text="Autor" />
+                                          <TableColumn fx:id="colEditorial" maxWidth="350.0" minWidth="100.0" prefWidth="120.0" text="Editorial" />
+                                          <TableColumn fx:id="colAsignatura" maxWidth="200.0" minWidth="100.0" prefWidth="120.0" text="Asignatura" />
+                                          <TableColumn fx:id="colEstado" maxWidth="200.0" minWidth="70.0" prefWidth="100.0" text="Estado" />
+                                      </columns>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="lblRegistros" alignment="BASELINE_RIGHT" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="694.0" text="Mostrando 17 de un total de 222 registros" textAlignment="RIGHT">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Segoe UI" size="12.0" />
+                                 </font></Label>
+                           </children>
+                        </VBox>
+                     </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

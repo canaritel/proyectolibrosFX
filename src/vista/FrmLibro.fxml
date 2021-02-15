@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="500.0" prefWidth="420.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.eventos.FrmLibroController">
+   <children>
+      <Label fx:id="lblTextoFrm" alignment="CENTER" blendMode="DARKEN" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="400.0" text="CREAR LIBRO" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <font>
+            <Font name="Segoe UI Historic" size="25.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="50.0" />
+         </VBox.margin>
+      </Separator>
+      <GridPane prefHeight="179.0" prefWidth="380.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="96.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.0" minWidth="10.0" prefWidth="284.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="txtTitulo" GridPane.columnIndex="1" />
+            <TextField fx:id="txtAutor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEditorial" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtAsignatura" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="TÍTULO:" textAlignment="RIGHT">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="AUTOR:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="EDITORIAL:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="ASIGNATURA:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_RIGHT" text="ESTADO:" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ComboBox fx:id="cmbEstado" onAction="#seleccionCombo" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <TextField fx:id="txtEstado" editable="false" />
+               </children>
+               <GridPane.margin>
+                  <Insets top="3.0" />
+               </GridPane.margin>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </GridPane>
+      <Separator prefHeight="51.0" prefWidth="420.0">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Separator>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="380.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarLibro" style="-fx-background-color: white;" text="Button" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="100.0" right="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fx:id="btnCancelar" blendMode="DARKEN" fitHeight="60.0" fitWidth="60.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/icons8_cancel_48px_6.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" mnemonicParsing="false" onAction="#grabarLibro" style="-fx-background-color: white;" text="Button" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="10.0" right="50.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fx:id="bntAceptar" fitHeight="60.0" fitWidth="60.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/icons8_ok_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

@@ -2,7 +2,7 @@ package database;
 
 //En este método vamos a usar el patrón Singleton
 // ************************************************MÉTODO SIN POOL DE CONEXIONES*************
-/*
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -55,4 +55,3 @@ public class Conexion {
     }
 
 }
-*/

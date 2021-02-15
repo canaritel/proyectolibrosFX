@@ -1,7 +1,6 @@
 package entidades;
 
 import datos.interfaces.ClonarClase;
-import java.util.Objects;
 
 //implementamos la clase de tipo ClonarClase, que es la interface creada para copiar clases
 //la opción de clonar es muy interesante cuado deseemos copiar clases
@@ -73,31 +72,6 @@ public class ClassAlumno implements ClonarClase {
 
     public void setApellido2(String apellido2) {
         this.apellido2 = apellido2;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ClassAlumno other = (ClassAlumno) obj;
-        if (!Objects.equals(this.dni, other.dni)) {
-            return false;
-        }
-
-        return true;
     }
 
 }

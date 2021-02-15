@@ -26,6 +26,7 @@ public class PrincipalVistaController implements Initializable {
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private double[] posicion;  //posición de la ventana en eje X-Y
+    String cargarVista; //elejimos que tipo de vista cargamos
 
     @FXML
     private Menu mnuAlumno;
@@ -46,27 +47,17 @@ public class PrincipalVistaController implements Initializable {
     }
 
     @FXML
-    private void crearAlumno(ActionEvent event) {
+    private void CrudAlumno(ActionEvent event) {
         this.cargarVistaAlumno();
     }
 
     @FXML
-    private void buscarAlumno(ActionEvent event) {
-        this.cargarVistaAlumno();
+    private void CrudLibro(ActionEvent event) {
+        this.cargarVistaLibro();
     }
 
     @FXML
-    private void editarAlumno(ActionEvent event) {
-        this.cargarVistaAlumno();
-    }
-
-    @FXML
-    private void eliminarAlumno(ActionEvent event) {
-        this.cargarVistaAlumno();
-    }
-
-    @FXML
-    private void cerrarAlumno(ActionEvent event) {
+    private void CerrarVentana(ActionEvent event) {
         if (stage != null) {
             stage.close();
         }
@@ -95,9 +86,36 @@ public class PrincipalVistaController implements Initializable {
             this.ventanaPosicion();
             //cambiamos la opacidad de la ventana 
             this.cambiarOpacidad(0.5);
-            controladorAlumno.cargarTabla(""); //cargamos y mostramos la tabla de alumnos
-            stage.showAndWait(); //mostramos la nueva ventana y esperamos
             //El programa continua en esta línea cuando la nueva ventana se cierre
+            stage.showAndWait(); //mostramos la nueva ventana y esperamos
+            //Cuando regresemos quitamos la opacidad
+            this.cambiarOpacidad(1);
+
+        } catch (IOException ex) {
+            System.err.println("Error en el inicio validado " + ex);
+        }
+    }
+
+    public void cargarVistaLibro() {
+        try {
+            //cargamos la vista FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/LibroVista.fxml"));
+            //instanciamos y cargamos el FXML en el padre
+            Parent root = loader.load();
+            //instanciamos al controlador libro haciendo uso del nuevo método getController
+            LibroVistaController controladorLibro = loader.getController();
+            //creamos la nueva escena que viene del padre
+            scene = new Scene(root);
+            stage = new Stage();    //creamos la nueva ventana
+            stage.setTitle("Gestión de Libros"); //ponemos un título
+            stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
+            stage.setScene(scene); //establecemos la escena
+            //posicionamos la nueva ventana
+            this.ventanaPosicion();
+            //cambiamos la opacidad de la ventana 
+            this.cambiarOpacidad(0.5);
+            //El programa continua en esta línea cuando la nueva ventana se cierre
+            stage.showAndWait(); //mostramos la nueva ventana y esperamos
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
 

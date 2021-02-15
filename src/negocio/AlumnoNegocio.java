@@ -3,13 +3,11 @@ package negocio;
 import datos.AlumnoDAO;
 import entidades.ClassAlumno;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
 
 public class AlumnoNegocio {
 
     private final AlumnoDAO DATOS;
     private final ClassAlumno objeto;
-    private DefaultTableModel modeloTabla;
 
     public AlumnoNegocio() {
         this.DATOS = new AlumnoDAO();

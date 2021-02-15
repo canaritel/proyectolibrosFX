@@ -1,6 +1,6 @@
 package controlador;
 
-import controlador.eventos.FrmAlumnoNuevoController;
+import controlador.eventos.FrmAlumnoController;
 import datos.AlumnoDAO;
 import entidades.ClassAlumno;
 import java.io.IOException;
@@ -79,6 +79,7 @@ public class AlumnoVistaController implements Initializable {
         this.btnEditar.setDisable(true);
         this.btnEliminar.setDisable(true);
         datos = new AlumnoDAO();  //instanciamos un objeto para hacer consultas a la BD
+        this.cargarTabla(""); //cargamos la tabla de alumnos
     }
 
     @FXML
@@ -188,15 +189,15 @@ public class AlumnoVistaController implements Initializable {
     private void cargarFrmAlumno() {
         try {
             //cargamos la vista FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FrmAlumnoNuevo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FrmAlumno.fxml"));
             //instanciamos y cargamos el FXML en el padre
             Parent root = loader.load();
             //instanciamos al controlador FrmAlumnoNuevo haciendo uso del nuevo método getController
-            FrmAlumnoNuevoController ctrFrmAlumno = loader.getController();
+            FrmAlumnoController ctrFrmAlumno = loader.getController();
             //creamos la nueva escena que viene del padre
             scene = new Scene(root);
             stage = new Stage();    //creamos la nueva ventana
-            stage.setTitle("Alta de Alumnos"); //ponemos un título
+            stage.setTitle("Crud de Alumnos"); //ponemos un título
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
             //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización

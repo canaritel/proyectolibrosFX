@@ -55,7 +55,7 @@
       <menus>
         <Menu fx:id="mnuAlumno" mnemonicParsing="false" text="Alumnos">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#crearAlumno" text="Crear...">
+            <MenuItem mnemonicParsing="false" onAction="#CrudAlumno" text="Crear...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -69,7 +69,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#buscarAlumno" text="Buscar...">
+            <MenuItem mnemonicParsing="false" onAction="#CrudAlumno" text="Buscar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -83,7 +83,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#editarAlumno" text="Editar...">
+            <MenuItem mnemonicParsing="false" onAction="#CrudAlumno" text="Editar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -97,7 +97,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#eliminarAlumno" text="Eliminar...">
+            <MenuItem mnemonicParsing="false" onAction="#CrudAlumno" text="Eliminar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -112,7 +112,7 @@
                         </ImageView>
                      </graphic></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#cerrarAlumno" text="Cerrar">
+            <MenuItem mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -156,7 +156,7 @@
                   </ImageView>
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Crear...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudLibro" text="Crear...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -170,7 +170,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Buscar...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudLibro" text="Buscar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -184,7 +184,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Editar...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudLibro" text="Editar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -198,7 +198,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Eliminar...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudLibro" text="Eliminar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -213,7 +213,7 @@
                         </ImageView>
                      </graphic></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cerrar">
+                  <MenuItem mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
