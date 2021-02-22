@@ -27,7 +27,7 @@ public class LibroDAO implements CrudInterface<ClassLibro> {
     @Override
     public ObservableList<ClassLibro> listar(String texto) {
         Variables.registrosMostrados = 0;
-        //Creamos un ObservablearrayList de tipo List donde guardar los datos de nuestra tabla
+        //Creamos un ObservablearrayList donde guardar los datos de nuestra tabla
         ObservableList<ClassLibro> registros = FXCollections.observableArrayList(); //Especial para javaFX
         String filtra = texto.toUpperCase();
         String SQL = "SELECT * FROM libros WHERE titulo LIKE '%" + filtra

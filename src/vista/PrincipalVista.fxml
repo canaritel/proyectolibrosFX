@@ -231,7 +231,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Préstamos">
           <items>
-                  <MenuItem mnemonicParsing="false" text="Crear...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudPrestamos" text="Crear...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -247,9 +247,9 @@
                      </graphic></MenuItem>
             <Menu mnemonicParsing="false" text="Buscar por">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Genérico" />
-                        <MenuItem mnemonicParsing="false" text="Alumnos" />
-                        <MenuItem mnemonicParsing="false" text="Libros" />
+                        <MenuItem mnemonicParsing="false" onAction="#CrudPrestamos" text="Genérico" />
+                        <MenuItem mnemonicParsing="false" onAction="#CrudPrestamos" text="Alumnos" />
+                        <MenuItem mnemonicParsing="false" onAction="#CrudPrestamos" text="Libros" />
                      </items>
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
@@ -264,7 +264,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></Menu>
-                  <MenuItem mnemonicParsing="false" text="Editar...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudPrestamos" text="Editar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -278,7 +278,7 @@
                            </cursor>
                         </ImageView>
                      </graphic></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Eliminar...">
+                  <MenuItem mnemonicParsing="false" onAction="#CrudPrestamos" text="Eliminar...">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -293,7 +293,7 @@
                         </ImageView>
                      </graphic></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cerrar">
+                  <MenuItem mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>

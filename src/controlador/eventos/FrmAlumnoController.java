@@ -49,8 +49,8 @@ public class FrmAlumnoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         mensaje = new MensajeFX();  //instanciamos la clase mensaje para hacer uso de ella
         CONTROL = new AlumnoNegocio();  //instanciamos la clase AlumnoNegocio
-        lblTextoFrm.setText(Variables.textoFrmAlumno);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
-        if ("ELIMINAR ALUMNO".equals(Variables.textoFrmAlumno)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
+        lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
+        if ("ELIMINAR ALUMNO".equals(Variables.textoFrm)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
             txtDni.setEditable(false);
             txtNombre.setEditable(false);
             txtApellido1.setEditable(false);
@@ -131,7 +131,7 @@ public class FrmAlumnoController implements Initializable {
     private void guardarDatos() {
         String respuesta;
         try {
-            switch (Variables.textoFrmAlumno) {
+            switch (Variables.textoFrm) {
                 case "CREAR ALUMNO":
                     respuesta = this.CONTROL.insertar(txtDni.getText().strip().toUpperCase(), txtNombre.getText().strip().toUpperCase(),
                                                       txtApellido1.getText().strip().toUpperCase(), txtApellido2.getText().strip().toUpperCase());

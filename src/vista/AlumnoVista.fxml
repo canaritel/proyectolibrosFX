@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -135,22 +136,45 @@
                                     </TableView>
                                  </children>
                               </HBox>
-                              <Label fx:id="lblRegistros" alignment="BASELINE_RIGHT" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="694.0" text="Mostrando 17 de un total de 222 registros" textAlignment="RIGHT">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets bottom="5.0" left="10.0" right="10.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="Segoe UI" size="12.0" />
-                                 </font></Label>
                            </children>
                         </VBox>
                      </content>
                 </Tab>
               </tabs>
             </TabPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="20.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="lblInfoAlumno" prefHeight="17.0" prefWidth="546.0" text="INFORMACIÓN:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets top="-2.0" />
+               </padding>
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+               <effect>
+                  <Blend />
+               </effect>
+               <graphic>
+                  <ImageView disable="true" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/flecha1.gif" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label fx:id="lblRegistros" alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="402.0" text="Mostrando 17 de un total de 222 registros" textAlignment="RIGHT">
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" />
+               </padding>
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </children>

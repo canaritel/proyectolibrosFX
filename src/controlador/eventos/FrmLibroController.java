@@ -62,9 +62,9 @@ public class FrmLibroController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         mensaje = new MensajeFX();  //instanciamos la clase mensaje para hacer uso de ella
         CONTROL = new LibroNegocio();  //instanciamos la clase AlumnoNegocio
-        lblTextoFrm.setText(Variables.textoFrmLibro);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
+        lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
 
-        if ("ELIMINAR LIBRO".equals(Variables.textoFrmLibro)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
+        if ("ELIMINAR LIBRO".equals(Variables.textoFrm)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
             txtTitulo.setEditable(false);
             txtAutor.setEditable(false);
             txtEditorial.setEditable(false);
@@ -102,7 +102,7 @@ public class FrmLibroController implements Initializable {
     private void seleccionCombo(ActionEvent event) {
         //Este evento se produce cuando seleccionamos dentro de nuestro ComboBox
         String textoEstado = cmbEstado.getSelectionModel().getSelectedItem();
-        if (!"ELIMINAR LIBRO".equals(Variables.textoFrmLibro) || (!textoEstado.equalsIgnoreCase("Seleccione estado"))) {
+        if (!"ELIMINAR LIBRO".equals(Variables.textoFrm) || (!textoEstado.equalsIgnoreCase("Seleccione estado"))) {
             txtEstado.setText(textoEstado); //solo enviamos el texto cuando es distinto de Eliminar
         }
     }
@@ -116,7 +116,6 @@ public class FrmLibroController implements Initializable {
         txtAsignatura.setText(objLibro.getAsignatura());
         txtEstado.setText(objLibro.getEstado());
         copiaLibro = (ClassLibro) objLibro.clonar(); //vamos a usar esta copia para el proceso de editar
-
     }
 
     private boolean comprobarDatos() {
@@ -175,10 +174,11 @@ public class FrmLibroController implements Initializable {
     private void guardarDatos() {
         String respuesta;
         try {
-            switch (Variables.textoFrmLibro) {
+            switch (Variables.textoFrm) {
                 case "CREAR LIBRO":
                     respuesta = this.CONTROL.insertar(txtTitulo.getText().strip().toUpperCase(), txtAutor.getText().strip().toUpperCase(),
-                                                      txtEditorial.getText().strip().toUpperCase(), txtAsignatura.getText().strip().toUpperCase(), txtEstado.getText().strip().toUpperCase());
+                                                      txtEditorial.getText().strip().toUpperCase(), txtAsignatura.getText().strip().toUpperCase(),
+                                                      txtEstado.getText().strip().toUpperCase());
                     if ("OK".equals(respuesta)) {
                         mensaje.printTexto("Libro añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();

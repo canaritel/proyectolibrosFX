@@ -134,6 +134,7 @@ public class AlumnoDAO implements CrudInterface<ClassAlumno> {
         return resp;
     }
 
+    
     public ClassAlumno devuelveAlumno(ClassAlumno obj) {
         String SQL = "SELECT * FROM alumnos WHERE registro=?";
         try {

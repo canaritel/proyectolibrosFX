@@ -57,6 +57,11 @@ public class PrincipalVistaController implements Initializable {
     }
 
     @FXML
+    private void CrudPrestamos(ActionEvent event) {
+        this.cargarVistaPrestamo();
+    }
+
+    @FXML
     private void CerrarVentana(ActionEvent event) {
         if (stage != null) {
             stage.close();
@@ -83,7 +88,7 @@ public class PrincipalVistaController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
             //posicionamos la nueva ventana
-            this.ventanaPosicion();
+            this.ventanaPosicion(90, 105);
             //cambiamos la opacidad de la ventana 
             this.cambiarOpacidad(0.5);
             //El programa continua en esta línea cuando la nueva ventana se cierre
@@ -111,7 +116,7 @@ public class PrincipalVistaController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
             //posicionamos la nueva ventana
-            this.ventanaPosicion();
+            this.ventanaPosicion(90, 105);
             //cambiamos la opacidad de la ventana 
             this.cambiarOpacidad(0.5);
             //El programa continua en esta línea cuando la nueva ventana se cierre
@@ -124,6 +129,34 @@ public class PrincipalVistaController implements Initializable {
         }
     }
 
+    public void cargarVistaPrestamo() {
+        try {
+            //cargamos la vista FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/PrestamoVista.fxml"));
+            //instanciamos y cargamos el FXML en el padre
+            Parent root = loader.load();
+            //instanciamos al controlador libro haciendo uso del nuevo método getController
+            PrestamoVistaController controladorPrestamo = loader.getController();
+            //creamos la nueva escena que viene del padre
+            scene = new Scene(root);
+            stage = new Stage();    //creamos la nueva ventana
+            stage.setTitle("Gestión de Préstamos"); //ponemos un título
+            stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
+            stage.setScene(scene); //establecemos la escena
+            //posicionamos la nueva ventana
+            this.ventanaPosicion(0, 100);
+            //cambiamos la opacidad de la ventana 
+            this.cambiarOpacidad(0.5);
+            //El programa continua en esta línea cuando la nueva ventana se cierre
+            stage.showAndWait(); //mostramos la nueva ventana y esperamos
+            //Cuando regresemos quitamos la opacidad
+            this.cambiarOpacidad(1);
+
+        } catch (IOException ex) {
+            System.err.println("Error en el inicio validado " + ex);
+        }
+    }
+    
     //este método obtiene la posición de la actual ventana en coordenadas x, y
     //vamos a usar estos datos para posicionar la ventana correctamente
     public double[] obtenPosicionX_Y() {
@@ -136,10 +169,10 @@ public class PrincipalVistaController implements Initializable {
         return posicionxy;
     }
 
-    public void ventanaPosicion() {
+    public void ventanaPosicion(int x, int y) {
         posicion = obtenPosicionX_Y();
-        posicion[0] = posicion[0] + 90;
-        posicion[1] = posicion[1] + 105;
+        posicion[0] = posicion[0] + x;
+        posicion[1] = posicion[1] + y;
         stage.setX(posicion[0]);
         stage.setY(posicion[1]);
     }

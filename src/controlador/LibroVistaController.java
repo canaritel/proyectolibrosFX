@@ -26,23 +26,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
+import negocio.MensajeFX;
 import negocio.Variables;
 
-/**
- * FXML Controller class
- *
- * @author telev
- */
 public class LibroVistaController implements Initializable {
 
     private ObservableList<ClassLibro> items; //instanciamos un objeto tipo arrayList especial para JavaFX
     private LibroDAO datos;   //instanciamos la clase AlumnoDAO la cual gestiona las acciones hacia nuestra BD
-    private int posicionAlumnoTabla;  //guardaremos la posición de la fila de la tabla
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private double[] posicion;    //posición de la ventana en eje X-Y
     private JMetro jMetro;  //variable para cambiar la vista de la escena
-    private int registro;   //variable donde guardar datos de la tabla
     private ClassLibro copiaLibro;  //objeto donde guardar datos de la tabla
 
     @FXML
@@ -73,6 +67,8 @@ public class LibroVistaController implements Initializable {
     private TableColumn<ClassLibro, String> colAsignatura;
     @FXML
     private TableColumn<ClassLibro, String> colEstado;
+    @FXML
+    private Label lblInfoLibro;
 
     /**
      * Initializes the controller class.
@@ -82,10 +78,9 @@ public class LibroVistaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
+        offOnBotones(true);
         datos = new LibroDAO();  //instanciamos un objeto para hacer consultas a la BD
-        this.cargarTabla(""); //cargamos la tabla de alumnos
+        this.cargarTabla(""); //cargamos la tabla de libros
     }
 
     @FXML
@@ -101,30 +96,35 @@ public class LibroVistaController implements Initializable {
 
     @FXML
     private void posicionTeclaTabla(KeyEvent event) {
-        //cuando pulsamos con el ratón en algún registro de la tabla capturamos la información de la fila
-        ClassLibro claseLibro = tablaLibro.getSelectionModel().getSelectedItem();
-        if (claseLibro != null) {  //si no es NULL capturamos los datos de la fila
-            copiaLibro = (ClassLibro) claseLibro.clonar();
-        }
-        this.btnEditar.setDisable(false);
-        this.btnEliminar.setDisable(false);
-    }
-
-    @FXML
-    private void posicionRatonTabla(MouseEvent event) {
         //cuando nos desplazamos con el cursor por la tabla capturamos la información de la fila
         ClassLibro claseLibro = tablaLibro.getSelectionModel().getSelectedItem();
         if (claseLibro != null) {  //si no es NULL capturamos los datos de la fila
             copiaLibro = (ClassLibro) claseLibro.clonar();
         }
-        this.btnEditar.setDisable(false);
-        this.btnEliminar.setDisable(false);
+        offOnBotones(false);
+        //si se pulsa ENTER en algún registro de la tabla y offOnbotones está en 1 y el objeto no es nulo
+        if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
+            System.out.println("Has Pulsado enter en la tabla");
+        }
+    }
+
+    @FXML
+    private void posicionRatonTabla(MouseEvent event) {
+        //cuando pulsamos con el ratón en algún registro de la tabla capturamos la información de la fila
+        ClassLibro claseLibro = tablaLibro.getSelectionModel().getSelectedItem();
+        if (claseLibro != null) {  //si no es NULL capturamos los datos de la fila
+            copiaLibro = (ClassLibro) claseLibro.clonar();
+        }
+        offOnBotones(false);
+        //Si se pulsa 2 veces en un registro y la variable offOnBotonesLibro está en 1
+        if (event.getClickCount() == 2 && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
+            MensajeFX.printTexto("Holaaaaaaa", "INFO", obtenPosicionX_Y());
+        }
     }
 
     @FXML
     private void buscarLibroTabla(ActionEvent event) {
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
+        offOnBotones(true);
         this.cargarTabla(txtFiltrarLibroTabla.getText());
     }
 
@@ -137,21 +137,21 @@ public class LibroVistaController implements Initializable {
     @FXML
     private void nuevoLibroTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmLibro = "CREAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
+        Variables.textoFrm = "CREAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
         this.cargarFrmLibro();
     }
 
     @FXML
     private void editarLibroTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmLibro = "EDITAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
+        Variables.textoFrm = "EDITAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
         this.cargarFrmLibro();
     }
 
     @FXML
     private void eliminarLibroTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmLibro = "ELIMINAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
+        Variables.textoFrm = "ELIMINAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
         this.cargarFrmLibro();
     }
 
@@ -194,7 +194,7 @@ public class LibroVistaController implements Initializable {
             stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
             stage.initStyle(StageStyle.UTILITY); //desactivamos maximinar y minimizar
             //Pasamos los datos a la nueva ventana FrmAlumno mientras sea distinto a CREAR LIBRO (se usará para EDITAR/ELIMINAR)
-            if (!"CREAR LIBRO".equals(Variables.textoFrmLibro)) {
+            if (!"CREAR LIBRO".equals(Variables.textoFrm)) {
                 ctrFrmLibro.pasarDatos(copiaLibro);
             }
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
@@ -234,11 +234,24 @@ public class LibroVistaController implements Initializable {
 
     private void limpiarVista() {
         this.cambiarOpacidad(1);
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
+        offOnBotones(true);
         this.txtFiltrarLibroTabla.setText("");
-        Variables.textoFrmLibro = "";  //el texto superior que aparece al entrar en FrmAlumno
+        Variables.textoFrm = "";  //el texto superior que aparece al entrar en FrmAlumno
     }
 
-   
+    private void offOnBotones(boolean estado) {
+        if (Variables.offBotonesLibros == 0) {
+            this.btnEditar.setDisable(estado);
+            this.btnEliminar.setDisable(estado);
+            lblInfoLibro.setText("");
+            lblInfoLibro.setDisable(true);
+            lblInfoLibro.setOpacity(0.01);
+        } else {
+            this.btnNuevo.setDisable(true);
+            this.btnEditar.setDisable(true);
+            this.btnEliminar.setDisable(true);
+            lblInfoLibro.setText("Haz doble clic o [ENTER] sobre el registro a seleccionar");
+        }
+    }
+
 }

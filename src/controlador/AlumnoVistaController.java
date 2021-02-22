@@ -26,19 +26,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
+import negocio.MensajeFX;
 import negocio.Variables;
 
 public class AlumnoVistaController implements Initializable {
 
     private ObservableList<ClassAlumno> items; //instanciamos un objeto tipo arrayList especial para JavaFX
     private AlumnoDAO datos;   //instanciamos la clase AlumnoDAO la cual gestiona las acciones hacia nuestra BD
-    private int posicionAlumnoTabla;  //guardaremos la posición de la fila de la tabla
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private double[] posicion;    //posición de la ventana en eje X-Y
     private JMetro jMetro;  //variable para cambiar la vista de la escena
-    private int registro;   //variable donde guardar datos de la tabla
-    private String dni, nombre, apellido1, apellido2;  //variable donde guardar datos de la tabla
+
     private ClassAlumno copiaAlumno;  //objeto donde guardar datos de la tabla
 
     @FXML
@@ -67,6 +66,8 @@ public class AlumnoVistaController implements Initializable {
     private TableColumn<ClassAlumno, String> colApellido1;
     @FXML
     private TableColumn<ClassAlumno, String> colApellido2;
+    @FXML
+    private Label lblInfoAlumno;
 
     /**
      * Initializes the controller class.
@@ -76,8 +77,7 @@ public class AlumnoVistaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
+        offOnBotones(true);
         datos = new AlumnoDAO();  //instanciamos un objeto para hacer consultas a la BD
         this.cargarTabla(""); //cargamos la tabla de alumnos
     }
@@ -111,8 +111,11 @@ public class AlumnoVistaController implements Initializable {
             //**** Hacemos uso del nuevo método Clonar para copiar clases ******
             copiaAlumno = (ClassAlumno) claseAlumno.clonar();
         }
-        this.btnEditar.setDisable(false);
-        this.btnEliminar.setDisable(false);
+        offOnBotones(false);
+        //si se pulsa ENTER en algún registro de la tabla y offOnbotones está en 1 y el objeto no es nulo
+        if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesAlumnos == 1) && (claseAlumno != null)) {
+            System.out.println("Has Pulsado enter en la tabla");
+        }
     }
 
     @FXML
@@ -132,16 +135,17 @@ public class AlumnoVistaController implements Initializable {
              */
             //**** Hacemos uso del nuevo método Clonar para copiar clases ******
             copiaAlumno = (ClassAlumno) claseAlumno.clonar();
-
         }
-        this.btnEditar.setDisable(false);
-        this.btnEliminar.setDisable(false);
+        offOnBotones(false);
+        //Si se pulsa 2 veces en un registro y la variable offOnBotonesAlumno está en 1
+        if (event.getClickCount() == 2 && (Variables.offBotonesAlumnos == 1) && (claseAlumno != null)) {
+            MensajeFX.printTexto("Holaaaaaaa", "INFO", obtenPosicionX_Y());
+        }
     }
 
     @FXML
     private void buscarAlumnoTabla(ActionEvent event) {
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
+        offOnBotones(true);
         this.cargarTabla(txtFiltrarAlumnoTabla.getText());
     }
 
@@ -154,21 +158,21 @@ public class AlumnoVistaController implements Initializable {
     @FXML
     private void nuevoAlumnoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmAlumno = "CREAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        Variables.textoFrm = "CREAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
         this.cargarFrmAlumno();
     }
 
     @FXML
     private void editarAlumnoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar
-        Variables.textoFrmAlumno = "EDITAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        Variables.textoFrm = "EDITAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
         this.cargarFrmAlumno();
     }
 
     @FXML
     private void eliminarAlumnoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrmAlumno = "ELIMINAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        Variables.textoFrm = "ELIMINAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
         this.cargarFrmAlumno();
     }
 
@@ -210,7 +214,7 @@ public class AlumnoVistaController implements Initializable {
             stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
             stage.initStyle(StageStyle.UTILITY); //desactivamos maximinar y minimizar
             //Pasamos los datos a la nueva ventana FrmAlumno mientras sea distinto a CREAR ALUMNO (se usará para EDITAR/ELIMINAR)
-            if (!"CREAR ALUMNO".equals(Variables.textoFrmAlumno)) {
+            if (!"CREAR ALUMNO".equals(Variables.textoFrm)) {
                 ctrFrmAlumno.pasarDatos(copiaAlumno);
             }
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
@@ -236,6 +240,7 @@ public class AlumnoVistaController implements Initializable {
     }
 
     public void ventanaPosicion() {
+        posicion = new double[2];
         posicion = obtenPosicionX_Y();
         posicion[0] = posicion[0] + 165;
         posicion[1] = posicion[1] + 105;
@@ -250,10 +255,24 @@ public class AlumnoVistaController implements Initializable {
 
     private void limpiarVista() {
         this.cambiarOpacidad(1);
-        this.btnEditar.setDisable(true);
-        this.btnEliminar.setDisable(true);
+        offOnBotones(true);
         this.txtFiltrarAlumnoTabla.setText("");
-        Variables.textoFrmAlumno = "";  //el texto superior que aparece al entrar en FrmAlumno
+        Variables.textoFrm = "";  //el texto superior que aparece al entrar en FrmAlumno
+    }
+
+    private void offOnBotones(boolean estado) {
+        if (Variables.offBotonesAlumnos == 0) {
+            this.btnEditar.setDisable(estado);
+            this.btnEliminar.setDisable(estado);
+            lblInfoAlumno.setText("");
+            lblInfoAlumno.setDisable(true);
+            lblInfoAlumno.setOpacity(0.01);
+        } else {
+            this.btnNuevo.setDisable(true);
+            this.btnEditar.setDisable(true);
+            this.btnEliminar.setDisable(true);
+            lblInfoAlumno.setText("Haz doble clic o [ENTER] sobre el registro a seleccionar");
+        }
     }
 
 }

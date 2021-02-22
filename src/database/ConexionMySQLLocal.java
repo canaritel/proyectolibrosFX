@@ -28,9 +28,9 @@ public class ConexionMySQLLocal implements ConexionInterface {
             basicDataSource.setPassword(PASSWORD);
             basicDataSource.setUrl(URL + DB + EXTRA);
 
-            basicDataSource.setMinIdle(5); //Sets the minimum number of idle connections in the pool.
-            basicDataSource.setMaxIdle(20); //Sets the maximum number of connections that can remain idle in the pool.
-            basicDataSource.setMaxTotal(50); //Sets the maximum total number of idle and borrows connections that can be active at the same time.
+            basicDataSource.setMinIdle(10); //Sets the minimum number of idle connections in the pool.
+            basicDataSource.setMaxIdle(40); //Sets the maximum number of connections that can remain idle in the pool.
+            basicDataSource.setMaxTotal(100); //Sets the maximum total number of idle and borrows connections that can be active at the same time.
             basicDataSource.setMaxWaitMillis(-1); //Sets the MaxWaitMillis property. Use -1 to make the pool wait indefinitely.
         }
     }

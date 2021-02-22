@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class AlumnoNegocio {
 
     private final AlumnoDAO DATOS;
-    private final ClassAlumno objeto;
+    private ClassAlumno objeto;
 
     public AlumnoNegocio() {
         this.DATOS = new AlumnoDAO();
@@ -73,6 +73,7 @@ public class AlumnoNegocio {
     }
 
     public ClassAlumno devolverAlumno(int registro) throws SQLException {
+        objeto = new ClassAlumno();
         objeto.setIdRegistro(registro);
         return DATOS.devuelveAlumno(objeto);
     }

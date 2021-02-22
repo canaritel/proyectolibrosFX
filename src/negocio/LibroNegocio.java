@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class LibroNegocio {
 
     private final LibroDAO DATOS;
-    private final ClassLibro objeto;
+    private ClassLibro objeto;
 
     public LibroNegocio() {
         this.DATOS = new LibroDAO();
@@ -76,6 +76,7 @@ public class LibroNegocio {
     }
 
     public ClassLibro devolverLibro(int registro) throws SQLException {
+        objeto = new ClassLibro();
         objeto.setCodigo(registro);
         return DATOS.devuelveLibro(objeto);
     }
