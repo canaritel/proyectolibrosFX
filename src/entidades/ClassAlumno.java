@@ -74,4 +74,9 @@ public class ClassAlumno implements ClonarClase {
         this.apellido2 = apellido2;
     }
 
+    @Override
+    public String toString() {
+        return "ClassAlumno{" + "idRegistro=" + idRegistro + ", dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + '}';
+    }
+
 }

@@ -27,7 +27,6 @@ import negocio.Variables;
  */
 public class FrmLibroController implements Initializable {
 
-    private MensajeFX mensaje;    //variable tipo MensajeFX para imprimir mensajes en pantalla
     private LibroNegocio CONTROL;  //instanciamos nuestra clase para realizar CRUD
     private int codLibro;
     private ObservableList<String> itemsCombo;  //creamos un objeto ObservableList para nuestro comboBox
@@ -60,7 +59,6 @@ public class FrmLibroController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mensaje = new MensajeFX();  //instanciamos la clase mensaje para hacer uso de ella
         CONTROL = new LibroNegocio();  //instanciamos la clase AlumnoNegocio
         lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
 
@@ -121,49 +119,49 @@ public class FrmLibroController implements Initializable {
     private boolean comprobarDatos() {
         //Comprobamos los campos no estén vacíos
         if (txtTitulo.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Título' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Título' está vacío", "WARNING", posicionX_Y());
             txtTitulo.requestFocus();
             return false; //devuelvo el código y no continuo
         }
         if (txtAutor.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Autor' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Autor' está vacío", "WARNING", posicionX_Y());
             txtAutor.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtEditorial.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Editorial' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Editorial' está vacío", "WARNING", posicionX_Y());
             txtEditorial.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtAsignatura.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Asignatura' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Asignatura' está vacío", "WARNING", posicionX_Y());
             txtAsignatura.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtEstado.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Estado' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Estado' está vacío", "WARNING", posicionX_Y());
             cmbEstado.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
 
         //Comprobamos los campos no excendan del tañano permitido
         if (txtTitulo.getText().length() > 68) {
-            mensaje.printTexto("El campo 'Título' excede del tamaño de 68 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Título' excede del tamaño de 68 carácteres", "WARNING", posicionX_Y());
             txtTitulo.requestFocus();
             return false; //devuelvo el código y no continuo
         }
         if (txtAutor.getText().length() > 40) {
-            mensaje.printTexto("El campo 'Autor' excede del tamaño de 40 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Autor' excede del tamaño de 40 carácteres", "WARNING", posicionX_Y());
             txtAutor.requestFocus();
             return false; //devuelvo el código y no continuo
         }
         if (txtEditorial.getText().length() > 36) {
-            mensaje.printTexto("El campo 'Editorial' excede del tamaño de 36 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Editorial' excede del tamaño de 36 carácteres", "WARNING", posicionX_Y());
             txtEditorial.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtAsignatura.getText().length() > 38) {
-            mensaje.printTexto("El campo 'Asignatura' excede del tamaño de 38 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Asignatura' excede del tamaño de 38 carácteres", "WARNING", posicionX_Y());
             txtAsignatura.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
@@ -180,11 +178,11 @@ public class FrmLibroController implements Initializable {
                                                       txtEditorial.getText().strip().toUpperCase(), txtAsignatura.getText().strip().toUpperCase(),
                                                       txtEstado.getText().strip().toUpperCase());
                     if ("OK".equals(respuesta)) {
-                        mensaje.printTexto("Libro añadido correctamente", "INFO", posicionX_Y());
+                        MensajeFX.printTexto("Libro añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();
 
                     } else {
-                        mensaje.printTexto(respuesta, "ERROR", posicionX_Y());
+                        MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
                     break;
 
@@ -193,25 +191,25 @@ public class FrmLibroController implements Initializable {
                                                         txtEditorial.getText().strip().toUpperCase(), txtAsignatura.getText().strip().toUpperCase(),
                                                         txtEstado.getText().strip().toUpperCase(), copiaLibro);
                     if ("OK".equals(respuesta)) {
-                        mensaje.printTexto("Libro editado correctamente", "INFO", posicionX_Y());
+                        MensajeFX.printTexto("Libro editado correctamente", "INFO", posicionX_Y());
                         this.limpiar();
                         Stage myStage = (Stage) this.txtTitulo.getScene().getWindow();
                         myStage.close();
                     } else {
-                        mensaje.printTexto(respuesta, "ERROR", posicionX_Y());
+                        MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
                     break;
 
                 case "ELIMINAR LIBRO":
-                    if (mensaje.printTexto("¿Desea eliminar este registro?", "CONFIRM", posicionX_Y())) {
+                    if (MensajeFX.printTexto("¿Desea eliminar este registro?", "CONFIRM", posicionX_Y())) {
                         respuesta = this.CONTROL.eliminar(codLibro);
                         if ("OK".equals(respuesta)) {
-                            mensaje.printTexto("Libro eliminado correctamente", "INFO", posicionX_Y());
+                            MensajeFX.printTexto("Libro eliminado correctamente", "INFO", posicionX_Y());
                             this.limpiar();
                             Stage myStage = (Stage) this.txtTitulo.getScene().getWindow();
                             myStage.close();
                         } else {
-                            mensaje.printTexto(respuesta, "ERROR", posicionX_Y());
+                            MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                         }
                     }
                     break;

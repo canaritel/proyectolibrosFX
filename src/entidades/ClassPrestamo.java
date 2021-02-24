@@ -85,4 +85,9 @@ public class ClassPrestamo implements ClonarClase {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "ClassPrestamo{" + "id=" + id + ", codalumno=" + codalumno + ", codlibro=" + codlibro + ", fechapres=" + fechapres + ", fechadevo=" + fechadevo + ", estado=" + estado + '}';
+    }
+
 }

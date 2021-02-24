@@ -1,5 +1,6 @@
 package controlador;
 
+import com.myappfx.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -156,7 +157,7 @@ public class PrincipalVistaController implements Initializable {
             System.err.println("Error en el inicio validado " + ex);
         }
     }
-    
+
     //este método obtiene la posición de la actual ventana en coordenadas x, y
     //vamos a usar estos datos para posicionar la ventana correctamente
     public double[] obtenPosicionX_Y() {

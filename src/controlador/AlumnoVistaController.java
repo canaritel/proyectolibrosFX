@@ -26,7 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
-import negocio.MensajeFX;
 import negocio.Variables;
 
 public class AlumnoVistaController implements Initializable {
@@ -37,7 +36,6 @@ public class AlumnoVistaController implements Initializable {
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private double[] posicion;    //posición de la ventana en eje X-Y
     private JMetro jMetro;  //variable para cambiar la vista de la escena
-
     private ClassAlumno copiaAlumno;  //objeto donde guardar datos de la tabla
 
     @FXML
@@ -114,7 +112,11 @@ public class AlumnoVistaController implements Initializable {
         offOnBotones(false);
         //si se pulsa ENTER en algún registro de la tabla y offOnbotones está en 1 y el objeto no es nulo
         if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesAlumnos == 1) && (claseAlumno != null)) {
-            System.out.println("Has Pulsado enter en la tabla");
+            guardarDatosAlumno();
+            cerrarVentana();
+        } else if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesAlumnos == 0) && (claseAlumno != null)) {
+            Variables.textoFrm = "EDITAR ALUMNO";  //Lo procesamos como Editar
+            this.cargarFrmAlumno();
         }
     }
 
@@ -139,12 +141,17 @@ public class AlumnoVistaController implements Initializable {
         offOnBotones(false);
         //Si se pulsa 2 veces en un registro y la variable offOnBotonesAlumno está en 1
         if (event.getClickCount() == 2 && (Variables.offBotonesAlumnos == 1) && (claseAlumno != null)) {
-            MensajeFX.printTexto("Holaaaaaaa", "INFO", obtenPosicionX_Y());
+            guardarDatosAlumno();
+            cerrarVentana();
+        } else if (event.getClickCount() == 2 && (Variables.offBotonesAlumnos == 0) && (claseAlumno != null)) {
+            Variables.textoFrm = "EDITAR ALUMNO";  //Lo procesamos como Editar
+            this.cargarFrmAlumno();
         }
     }
 
     @FXML
-    private void buscarAlumnoTabla(ActionEvent event) {
+    private void buscarAlumnoTabla(ActionEvent event
+    ) {
         offOnBotones(true);
         this.cargarTabla(txtFiltrarAlumnoTabla.getText());
     }
@@ -177,7 +184,8 @@ public class AlumnoVistaController implements Initializable {
     }
 
     @SuppressWarnings("unchecked")
-    public void cargarTabla(String filtro) {
+    public void cargarTabla(String filtro
+    ) {
         //asignamos a cada columna de la tabla el valor de su campo referenciado en ClassAlumno
         this.colRegistro.setCellValueFactory(new PropertyValueFactory("idRegistro"));
         this.ColDni.setCellValueFactory(new PropertyValueFactory("dni"));
@@ -264,15 +272,26 @@ public class AlumnoVistaController implements Initializable {
         if (Variables.offBotonesAlumnos == 0) {
             this.btnEditar.setDisable(estado);
             this.btnEliminar.setDisable(estado);
-            lblInfoAlumno.setText("");
-            lblInfoAlumno.setDisable(true);
-            lblInfoAlumno.setOpacity(0.01);
+            lblInfoAlumno.setText("Haz doble clic o [ENTER] sobre el registro para Editar");
         } else {
             this.btnNuevo.setDisable(true);
             this.btnEditar.setDisable(true);
             this.btnEliminar.setDisable(true);
             lblInfoAlumno.setText("Haz doble clic o [ENTER] sobre el registro a seleccionar");
         }
+    }
+
+    private void cerrarVentana() {
+        Stage myStage = (Stage) this.lblRegistros.getScene().getWindow();
+        myStage.close();
+    }
+
+    private void guardarDatosAlumno() {
+        Variables.codigoAlumno = String.valueOf(copiaAlumno.getIdRegistro());
+        Variables.dni = copiaAlumno.getDni();
+        Variables.nombre = copiaAlumno.getNombre();
+        Variables.apellido1 = copiaAlumno.getApellido1();
+        Variables.apellido2 = copiaAlumno.getApellido2();
     }
 
 }

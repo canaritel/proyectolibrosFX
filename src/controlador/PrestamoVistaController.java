@@ -1,9 +1,7 @@
 package controlador;
 
 import controlador.eventos.FrmPrestamoController;
-import datos.AlumnoDAO;
 import datos.PrestamoDAO;
-import entidades.ClassAlumno;
 import entidades.ClassPrestamo;
 import entidades.ClassPrestamoAlumno;
 import entidades.ClassPrestamoLibro;
@@ -51,12 +49,10 @@ public class PrestamoVistaController implements Initializable {
     private double[] posicion;    //posición de la ventana en eje X-Y
     private JMetro jMetro;  //variable para cambiar la vista de la escena
     private int registro;   //variable donde guardar datos de la tabla
-    private ClassPrestamo copiaPrestamo;  //objeto donde guardar datos de la tabla
-    private ClassPrestamoAlumno copiaPrestamoA;  //objeto donde guardar datos de la tabla
-    private ClassPrestamoLibro copiaPrestamoLibro;  //objeto donde guardar datos de la tabla
-
-    private ClassAlumno objetoAlumno;
-    private AlumnoDAO alumnoDao;
+    private ClassPrestamo clasePrestamo, copiaPrestamo;  //objeto donde guardar datos de la tabla
+    private ClassPrestamoAlumno clasePrestamoA, copiaPrestamoA;  //objeto donde guardar datos de la tabla
+    private ClassPrestamoLibro clasePrestamoLibro, copiaPrestamoLibro;  //objeto donde guardar datos de la tabla
+    private int tabSeleccionado; //guardamos que tab está seleccionado
 
     @FXML
     private Tab tabListaPrestaCodigo;
@@ -209,26 +205,30 @@ public class PrestamoVistaController implements Initializable {
     @FXML
     private void posicionTeclaTabla(KeyEvent event) {
         //cuando nos desplazamos con el cursor por la tabla capturamos la información de la fila
+        tabSeleccionado = 0;
         if (tabListaPrestaCodigo.isSelected()) {
-            ClassPrestamo clasePrestamo = tablaPrestamo.getSelectionModel().getSelectedItem();
+            clasePrestamo = tablaPrestamo.getSelectionModel().getSelectedItem();
             if (clasePrestamo != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamo = (ClassPrestamo) clasePrestamo.clonar();
+                tabSeleccionado = 1;
             }
             botonOffEditaElimina(false);
         }
 
         if (tabListaPrestaAlumno.isSelected()) {
-            ClassPrestamoAlumno clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
+            clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
             if (clasePrestamoA != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoA = (ClassPrestamoAlumno) clasePrestamoA.clonar();
+                tabSeleccionado = 2;
             }
             botonOffEditaEliminaAlumno(false);
         }
 
         if (tabListaPrestaLibro.isSelected()) {
-            ClassPrestamoLibro clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
+            clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
             if (clasePrestamoLibro != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoLibro = (ClassPrestamoLibro) clasePrestamoLibro.clonar();
+                tabSeleccionado = 3;
             }
             botonOffEditaEliminaLibro(false);
         }
@@ -237,26 +237,28 @@ public class PrestamoVistaController implements Initializable {
     @FXML
     private void posicionRatonTabla(MouseEvent event) {
         //cuando pulsamos con el ratón en algún registro de la tabla capturamos la información de la fila
+        tabSeleccionado = 0;
         if (tabListaPrestaCodigo.isSelected()) {
-            ClassPrestamo clasePrestamo = tablaPrestamo.getSelectionModel().getSelectedItem();
+            clasePrestamo = tablaPrestamo.getSelectionModel().getSelectedItem();
             if (clasePrestamo != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamo = (ClassPrestamo) clasePrestamo.clonar();
+                tabSeleccionado = 1;
             }
             botonOffEditaElimina(false);
         }
-
         if (tabListaPrestaAlumno.isSelected()) {
-            ClassPrestamoAlumno clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
+            clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
             if (clasePrestamoA != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoA = (ClassPrestamoAlumno) clasePrestamoA.clonar();
+                tabSeleccionado = 2;
             }
             botonOffEditaEliminaAlumno(false);
         }
-
         if (tabListaPrestaLibro.isSelected()) {
-            ClassPrestamoLibro clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
+            clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
             if (clasePrestamoLibro != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoLibro = (ClassPrestamoLibro) clasePrestamoLibro.clonar();
+                tabSeleccionado = 3;
             }
             botonOffEditaEliminaLibro(false);
         }
@@ -298,14 +300,20 @@ public class PrestamoVistaController implements Initializable {
     private void editarPrestamoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
         Variables.textoFrm = "EDITAR PRÉSTAMO";  //Se usará posteriormente en el controlador FrmPrestamo
-        this.cargarFrmPrestamo();
+        if (tabSeleccionado != 0) {
+            copiaPrestamo = convertirDatosClase(copiaPrestamoA, copiaPrestamoLibro); //usamos este método cuando la selección se realiza en tablas distintas a la general
+            this.cargarFrmPrestamo();
+        }
     }
 
     @FXML
     private void eliminarPrestamoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
         Variables.textoFrm = "ELIMINAR PRÉSTAMO";  //Se usará posteriormente en el controlador FrmPrestamo
-        this.cargarFrmPrestamo();
+        if (tabSeleccionado != 0) {
+            copiaPrestamo = convertirDatosClase(copiaPrestamoA, copiaPrestamoLibro); //usamos este método cuando la selección se realiza en tablas distintas a la general
+            this.cargarFrmPrestamo();
+        }
     }
 
     @FXML
@@ -368,6 +376,7 @@ public class PrestamoVistaController implements Initializable {
             //El programa continua en esta línea cuando la nueva ventana se cierre
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
             this.limpiarVista();
+            Variables.limpiarDatos();
             this.cargarTabla("");
 
         } catch (IOException ex) {
@@ -377,13 +386,14 @@ public class PrestamoVistaController implements Initializable {
 
     @SuppressWarnings("unchecked")
     private void inicializaTabla() {
+        //la tabla dentro de tab listado por código
         this.colRegistro.setCellValueFactory(new PropertyValueFactory("id"));
         this.ColCodAlumno.setCellValueFactory(new PropertyValueFactory("codalumno"));
         this.ColCodLibro.setCellValueFactory(new PropertyValueFactory("codlibro"));
         this.colFechaPrestamo.setCellValueFactory(new PropertyValueFactory("fechapres"));
         this.colFechaDevolucion.setCellValueFactory(new PropertyValueFactory("fechadevo"));
         this.colEstado.setCellValueFactory(new PropertyValueFactory("estado"));
-
+        //la tabla dentro de tab listado por alumnos
         this.colRegistroA.setCellValueFactory(new PropertyValueFactory("id"));
         this.colFechaPrestamoA.setCellValueFactory(new PropertyValueFactory("fechapres"));
         this.colFechaDevolucionA.setCellValueFactory(new PropertyValueFactory("fechadevo"));
@@ -394,7 +404,7 @@ public class PrestamoVistaController implements Initializable {
         this.ColApellido2A.setCellValueFactory(new PropertyValueFactory("apellido2"));
         this.ColCodLibroA.setCellValueFactory(new PropertyValueFactory("codlibro"));
         this.ColEstadoA.setCellValueFactory(new PropertyValueFactory("estado"));
-
+        //la tabla dentro de tab listado por libros
         this.colRegistroPrestaLibro.setCellValueFactory(new PropertyValueFactory("id"));
         this.colFPrestamoPrestaLibro.setCellValueFactory(new PropertyValueFactory("fechapres"));
         this.colFDevolucionPrestaLibro.setCellValueFactory(new PropertyValueFactory("fechadevo"));
@@ -420,6 +430,31 @@ public class PrestamoVistaController implements Initializable {
     public void botonOffEditaElimina(boolean estado) {
         this.btnEditar.setDisable(estado);
         this.btnEliminar.setDisable(estado);
+    }
+
+    private ClassPrestamo convertirDatosClase(ClassPrestamoAlumno clasePrestamoA, ClassPrestamoLibro clasePrestamoLibro) {
+        switch (tabSeleccionado) {
+            case 1:
+                //no realizamos nada ya que no debemos convertir entre clases
+                break;
+            case 2:
+                copiaPrestamo.setId(clasePrestamoA.getId());
+                copiaPrestamo.setCodalumno(clasePrestamoA.getCodalumno());
+                copiaPrestamo.setCodlibro(clasePrestamoA.getCodlibro());
+                copiaPrestamo.setFechapres(clasePrestamoA.getFechapres());
+                copiaPrestamo.setFechadevo(clasePrestamoA.getFechadevo());
+                copiaPrestamo.setEstado(clasePrestamoA.getEstado());
+                break;
+            case 3:
+                copiaPrestamo.setId(clasePrestamoLibro.getId());
+                copiaPrestamo.setCodalumno(clasePrestamoLibro.getCodalumno());
+                copiaPrestamo.setCodlibro(clasePrestamoLibro.getCodlibro());
+                copiaPrestamo.setFechapres(clasePrestamoLibro.getFechapres());
+                copiaPrestamo.setFechadevo(clasePrestamoLibro.getFechadevo());
+                copiaPrestamo.setEstado(clasePrestamoLibro.getEstado());
+                break;
+        }
+        return copiaPrestamo;
     }
 
     //este método obtiene la posición de la actual ventana en coordenadas x, y

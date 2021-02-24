@@ -27,7 +27,11 @@ public class PrestamoNegocio {
         objeto.setCodlibro(codigoLibro);
         objeto.setFechapres(fechaPrestamo);
         objeto.setFechadevo(fechaDevolucion);
-        objeto.setEstado(estado);
+        if (estado.length() > 12) {
+            objeto.setEstado(estado.substring(0, 12)); //capturamos solo los 12 primeros carácteres. Lo que marca ese campo en la tabla BD
+        } else {
+            objeto.setEstado(estado);
+        }
         if (DATOS.insertar(objeto)) {
             return "OK";
         } else {
@@ -41,7 +45,11 @@ public class PrestamoNegocio {
         objeto.setCodlibro(codigoLibro);
         objeto.setFechapres(fechaPrestamo);
         objeto.setFechadevo(fechaDevolucion);
-        objeto.setEstado(estado);
+        if (estado.length() > 12) {
+            objeto.setEstado(estado.substring(0, 12)); //capturamos solo los 12 primeros carácteres. Lo que marca ese campo en la tabla BD
+        } else {
+            objeto.setEstado(estado);
+        }
         if (DATOS.actualizar(objeto)) {
             return "OK";
         } else {
@@ -89,8 +97,8 @@ public class PrestamoNegocio {
         objetoAlumno.setIdRegistro(registro);
         return DATOS.devuelveAlumno(objetoAlumno);
     }
-    
-     public ClassLibro devolverLibro(int registro) throws SQLException {
+
+    public ClassLibro devolverLibro(int registro) throws SQLException {
         objetoLibro = new ClassLibro();
         objetoLibro.setCodigo(registro);
         return DATOS.devuelveLibro(objetoLibro);

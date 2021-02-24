@@ -31,7 +31,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro.JMetro;
 import negocio.MensajeFX;
 import negocio.PrestamoNegocio;
 import negocio.Variables;
@@ -46,12 +45,10 @@ public class FrmPrestamoController implements Initializable {
     public PrestamoNegocio CONTROL;  //instanciamos nuestra clase para realizar CRUD
     private int codIdPrestamo;
     private ObservableList<String> itemsCombo;  //creamos un objeto ObservableList para nuestro comboBox
-    private ClassPrestamo copiaPrestamo;
     private ClassAlumno claseAlumno;
     private ClassLibro claseLibro;
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
-    private JMetro jMetro;  //variable para cambiar la vista de la escena
     private double[] posicion;    //posición de la ventana en eje X-Y
 
     @FXML
@@ -107,7 +104,7 @@ public class FrmPrestamoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         CONTROL = new PrestamoNegocio();  //instanciamos la clase Negocio
         lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
-        this.OffcamposInfo();
+        this.OffcamposInfo();  //desactivo los campos textfield de información adicional
         if ("ELIMINAR PRÉSTAMO".equals(Variables.textoFrm)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
             this.OnOffCampos(false);
             this.OnOffBotones(true);
@@ -128,16 +125,13 @@ public class FrmPrestamoController implements Initializable {
     }
 
     @FXML
-    private void cancelarLibro(ActionEvent event) {
-        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
-        myStage.close();
+    private void seleccionFechaPresta(ActionEvent event) {
+        txtFechaPrestamoPresta.setText(String.valueOf(dateFechaPrestamo.getValue()));
     }
 
     @FXML
-    private void grabarLibro(ActionEvent event) {
-        if (comprobarDatos()) {
-            guardarDatos();
-        }
+    private void seleccionFechaDevo(ActionEvent event) {
+        txtFechaDevoPresta.setText(String.valueOf(dateFechaDevolucion.getValue()));
     }
 
     @FXML
@@ -165,6 +159,7 @@ public class FrmPrestamoController implements Initializable {
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
             Variables.offBotonesAlumnos = 0; //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Alumno
+            pasaDatosAlumnoInfo();  //pasamos los datos capturados a los campos textfield de información adicional
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
@@ -195,19 +190,23 @@ public class FrmPrestamoController implements Initializable {
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
             Variables.offBotonesLibros = 0; //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Libro
+            pasaDatosLibroInfo();
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
     }
 
     @FXML
-    private void seleccionFechaPresta(ActionEvent event) {
-        txtFechaPrestamoPresta.setText(String.valueOf(dateFechaPrestamo.getValue()));
+    private void cancelarLibro(ActionEvent event) {
+        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
+        myStage.close();
     }
 
     @FXML
-    private void seleccionFechaDevo(ActionEvent event) {
-        txtFechaDevoPresta.setText(String.valueOf(dateFechaDevolucion.getValue()));
+    private void grabarLibro(ActionEvent event) {
+        if (comprobarDatos()) {
+            guardarDatos();
+        }
     }
 
     //Este método viene de LibroVistaController y nos pasa los datos de los campos a editar/eliminar
@@ -216,13 +215,13 @@ public class FrmPrestamoController implements Initializable {
         claseLibro = new ClassLibro();  //debemos instaciar una clase libro para poder cargar los datos específicos de dichos libros
         //Pasamos los datos mientras a las variables que mostramos en pantalla
         codIdPrestamo = objPrestamo.getId();
+        txtCodAlumnoPresta.setText(objPrestamo.getCodalumno());
         txtCodLibroPresta.setText(objPrestamo.getCodlibro());
         txtFechaPrestamoPresta.setText(String.valueOf(objPrestamo.getFechapres()));
         txtFechaDevoPresta.setText(String.valueOf(objPrestamo.getFechadevo()));
         txtEstado.setText(objPrestamo.getEstado());
-        txtCodAlumnoPresta.setText(objPrestamo.getCodalumno());
-        //copiaPrestamo = (ClassPrestamo) objPrestamo.clonar(); //vamos a usar esta copia para el proceso de editar
-        //cargamos los datos correspondientes Alumnos y Libros. Estos datos están para informar mejor de los registros del CRUD
+
+        //cargamos los datos correspondientes Alumnos y Libros. Estos datos están para informar mejor de los registros del CRUD (información adicional)
         int idAlumno, idLibro;
         idAlumno = (Integer.parseInt(txtCodAlumnoPresta.getText()));
         idLibro = (Integer.parseInt(txtCodLibroPresta.getText()));
@@ -342,7 +341,6 @@ public class FrmPrestamoController implements Initializable {
         //comprobamos que la fecha devolución sea mayor a la fecha de préstamo
         if (!this.ComparaFecha(txtFechaPrestamoPresta.getText(), txtFechaDevoPresta.getText())) {
             MensajeFX.printTexto("El campo 'Fecha Devolución' no puede ser igual o menor al campo 'Fecha Préstamo'", "WARNING", posicionX_Y());
-
             dateFechaDevolucion.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo 
         }
@@ -351,7 +349,69 @@ public class FrmPrestamoController implements Initializable {
     }
 
     private void guardarDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String respuesta;
+        try {
+            switch (Variables.textoFrm) {
+                case "CREAR PRÉSTAMO":
+                    respuesta = this.CONTROL.insertar(txtCodAlumnoPresta.getText(), txtCodLibroPresta.getText(), ParseFecha(txtFechaPrestamoPresta.getText()),
+                                                      ParseFecha(txtFechaDevoPresta.getText()), txtEstado.getText().strip().toUpperCase());
+                    if ("OK".equals(respuesta)) {
+                        MensajeFX.printTexto("Préstamo añadido correctamente", "INFO", posicionX_Y());
+                        this.limpiar();
+                        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
+                        myStage.close();
+                    } else {
+                        MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
+                    }
+                    break;
+
+                case "EDITAR PRÉSTAMO":
+                    respuesta = this.CONTROL.actualizar(codIdPrestamo, txtCodAlumnoPresta.getText(), txtCodLibroPresta.getText(), ParseFecha(txtFechaPrestamoPresta.getText()),
+                                                        ParseFecha(txtFechaDevoPresta.getText()), txtEstado.getText().strip().toUpperCase());
+                    if ("OK".equals(respuesta)) {
+                        MensajeFX.printTexto("Libro editado correctamente", "INFO", posicionX_Y());
+                        this.limpiar();
+                        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
+                        myStage.close();
+                    } else {
+                        MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
+                    }
+                    break;
+
+                case "ELIMINAR PRÉSTAMO":
+                    if (MensajeFX.printTexto("¿Desea eliminar este registro?", "CONFIRM", posicionX_Y())) {
+                        respuesta = this.CONTROL.eliminar(codIdPrestamo);
+                        if ("OK".equals(respuesta)) {
+                            MensajeFX.printTexto("Libro eliminado correctamente", "INFO", posicionX_Y());
+                            this.limpiar();
+                            Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
+                            myStage.close();
+                        } else {
+                            MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
+                        }
+                    }
+                    break;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmAlumnoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void pasaDatosAlumnoInfo() {
+        infotxtDni.setText(Variables.dni);
+        infotxtNombre.setText(Variables.nombre);
+        infotxtApellido1.setText(Variables.apellido1);
+        infotxtApellido2.setText(Variables.apellido2);
+        txtCodAlumnoPresta.setText(Variables.codigoAlumno);
+    }
+
+    private void pasaDatosLibroInfo() {
+        infotxtTitulo.setText(Variables.titulo);
+        infotxtAutor.setText(Variables.autor);
+        infotxtEditorial.setText(Variables.editorial);
+        infotxtAsignatura.setText(Variables.asignatura);
+        txtCodLibroPresta.setText(Variables.codigoLibro);
     }
 
     public java.sql.Date ParseFecha(String fechaPrestamo) {

@@ -26,7 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
-import negocio.MensajeFX;
 import negocio.Variables;
 
 public class LibroVistaController implements Initializable {
@@ -104,7 +103,8 @@ public class LibroVistaController implements Initializable {
         offOnBotones(false);
         //si se pulsa ENTER en algún registro de la tabla y offOnbotones está en 1 y el objeto no es nulo
         if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
-            System.out.println("Has Pulsado enter en la tabla");
+            guardarDatosLibro();
+            cerrarVentana();
         }
     }
 
@@ -118,7 +118,8 @@ public class LibroVistaController implements Initializable {
         offOnBotones(false);
         //Si se pulsa 2 veces en un registro y la variable offOnBotonesLibro está en 1
         if (event.getClickCount() == 2 && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
-            MensajeFX.printTexto("Holaaaaaaa", "INFO", obtenPosicionX_Y());
+            guardarDatosLibro();
+            cerrarVentana();
         }
     }
 
@@ -243,15 +244,26 @@ public class LibroVistaController implements Initializable {
         if (Variables.offBotonesLibros == 0) {
             this.btnEditar.setDisable(estado);
             this.btnEliminar.setDisable(estado);
-            lblInfoLibro.setText("");
-            lblInfoLibro.setDisable(true);
-            lblInfoLibro.setOpacity(0.01);
+            lblInfoLibro.setText("Haz doble clic o [ENTER] sobre el registro para Editar");
         } else {
             this.btnNuevo.setDisable(true);
             this.btnEditar.setDisable(true);
             this.btnEliminar.setDisable(true);
             lblInfoLibro.setText("Haz doble clic o [ENTER] sobre el registro a seleccionar");
         }
+    }
+
+    private void cerrarVentana() {
+        Stage myStage = (Stage) this.lblRegistros.getScene().getWindow();
+        myStage.close();
+    }
+
+    private void guardarDatosLibro() {
+        Variables.codigoLibro = String.valueOf(copiaLibro.getCodigo());
+        Variables.titulo = copiaLibro.getTitulo();
+        Variables.autor = copiaLibro.getAutor();
+        Variables.editorial = copiaLibro.getEditorial();
+        Variables.asignatura = copiaLibro.getAsignatura();
     }
 
 }
