@@ -105,6 +105,9 @@ public class LibroVistaController implements Initializable {
         if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
             guardarDatosLibro();
             cerrarVentana();
+        } else if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesLibros == 0) && (claseLibro != null)) {
+            Variables.textoFrm = "EDITAR LIBRO";  //Lo procesamos como Editar
+            this.cargarFrmLibro();
         }
     }
 
@@ -120,6 +123,9 @@ public class LibroVistaController implements Initializable {
         if (event.getClickCount() == 2 && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
             guardarDatosLibro();
             cerrarVentana();
+        } else if (event.getClickCount() == 2 && (Variables.offBotonesLibros == 0) && (claseLibro != null)) {
+            Variables.textoFrm = "EDITAR LIBRO";  //Lo procesamos como Editar
+            this.cargarFrmLibro();
         }
     }
 

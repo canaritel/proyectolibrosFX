@@ -280,7 +280,6 @@ public class PrestamoVistaController implements Initializable {
             botonOffEditaEliminaLibro(true);
             this.cargarTabla(txtFiltrarPrestamoTablaLibro.getText());
         }
-
     }
 
     @FXML

@@ -20,11 +20,6 @@ import negocio.LibroNegocio;
 import negocio.MensajeFX;
 import negocio.Variables;
 
-/**
- * FXML Controller class
- *
- * @author telev
- */
 public class FrmLibroController implements Initializable {
 
     private LibroNegocio CONTROL;  //instanciamos nuestra clase para realizar CRUD
