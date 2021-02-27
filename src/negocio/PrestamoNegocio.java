@@ -19,7 +19,7 @@ public class PrestamoNegocio {
     public PrestamoNegocio() {
         this.DATOS = new PrestamoDAO();
         this.objeto = new ClassPrestamo();
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
     }
 
     public String insertar(String codigoAlumno, String codigoLibro, Date fechaPrestamo, Date fechaDevolucion, String estado) throws SQLException {
@@ -89,7 +89,7 @@ public class PrestamoNegocio {
     }
 
     public int totalMostrados() {
-        return Variables.registrosMostrados;
+        return Variables.getRegistrosMostrados();
     }
 
     public ClassAlumno devolverAlumno(int registro) throws SQLException {

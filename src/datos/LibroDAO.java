@@ -26,7 +26,7 @@ public class LibroDAO implements CrudInterface<ClassLibro> {
 
     @Override
     public ObservableList<ClassLibro> listar(String texto) {
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
         //Creamos un ObservablearrayList donde guardar los datos de nuestra tabla
         ObservableList<ClassLibro> registros = FXCollections.observableArrayList(); //Especial para javaFX
         String filtra = texto.toUpperCase();
@@ -40,7 +40,7 @@ public class LibroDAO implements CrudInterface<ClassLibro> {
 
             while (rs.next()) {
                 registros.add(new ClassLibro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
-                Variables.registrosMostrados = Variables.registrosMostrados + 1; //guardamos el total de registros mostrados
+                Variables.setRegistrosMostrados(Variables.getRegistrosMostrados() + 1); //guardamos el total de registros mostrados
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());

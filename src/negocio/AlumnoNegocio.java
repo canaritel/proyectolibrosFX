@@ -12,7 +12,7 @@ public class AlumnoNegocio {
     public AlumnoNegocio() {
         this.DATOS = new AlumnoDAO();
         this.objeto = new ClassAlumno();
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
     }
 
     public String insertar(String dni, String nombre, String apellido1, String apellido2) throws SQLException {
@@ -83,6 +83,6 @@ public class AlumnoNegocio {
     }
 
     public int totalMostrados() {
-        return Variables.registrosMostrados;
+        return Variables.getRegistrosMostrados();
     }
 }

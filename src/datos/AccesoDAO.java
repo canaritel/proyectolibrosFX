@@ -192,7 +192,7 @@ public class AccesoDAO implements CrudInterface<ClassAcceso> {
         }
         return resp;
     }
-   
+
     @Override
     public int total() {
         int totalResistros = 0;
@@ -226,7 +226,7 @@ public class AccesoDAO implements CrudInterface<ClassAcceso> {
         return totalResistros;
     }
 
-     public boolean login(String user, String password) throws SQLException {
+    public boolean login(String user, String password) throws SQLException {
         resp = false;
         String SQL = "SELECT * FROM usuarios WHERE usuario=? AND clave=?";
 
@@ -238,7 +238,7 @@ public class AccesoDAO implements CrudInterface<ClassAcceso> {
             rs.last();
             if (rs.getRow() > 0) {
                 resp = true;
-                Variables.varLogin = true; //ponemos en true la variable varLogin si el acceso es correcto
+                Variables.setVarLogin(true); //ponemos en true la variable varLogin si el acceso es correcto
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR, no se encuentran los archivos de la BD portable\n" + e.getMessage());
@@ -260,5 +260,5 @@ public class AccesoDAO implements CrudInterface<ClassAcceso> {
         }
         return resp;
     }
-    
+
 }

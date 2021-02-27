@@ -31,7 +31,7 @@ public class PrestamoDAO implements CrudInterface<ClassPrestamo> {
 
     @Override
     public ObservableList<ClassPrestamo> listar(String texto) {
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
         //Creamos un ObservablearrayList donde guardar los datos de nuestra tabla
         ObservableList<ClassPrestamo> registros = FXCollections.observableArrayList(); //Especial para javaFX
         String filtra = texto.toUpperCase();
@@ -68,7 +68,7 @@ public class PrestamoDAO implements CrudInterface<ClassPrestamo> {
     }
 
     public ObservableList<ClassPrestamoAlumno> listarAlumno(String texto) {
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
         //Creamos un ObservablearrayList donde guardar los datos de nuestra tabla
         ObservableList<ClassPrestamoAlumno> registros = FXCollections.observableArrayList(); //Especial para javaFX
         String filtra = texto.toUpperCase();
@@ -110,7 +110,7 @@ public class PrestamoDAO implements CrudInterface<ClassPrestamo> {
     }
 
     public ObservableList<ClassPrestamoLibro> listarLibro(String texto) {
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
         //Creamos un ObservablearrayList donde guardar los datos de nuestra tabla
         ObservableList<ClassPrestamoLibro> registros = FXCollections.observableArrayList(); //Especial para javaFX
         String filtra = texto.toUpperCase();
@@ -419,8 +419,8 @@ public class PrestamoDAO implements CrudInterface<ClassPrestamo> {
         }
         return obj;
     }
-    
-     public ClassLibro devuelveLibro(ClassLibro obj) {
+
+    public ClassLibro devuelveLibro(ClassLibro obj) {
         String SQL = "SELECT * FROM libros WHERE codigo=?";
         try {
             ps = CON.conectar().prepareStatement(SQL);
@@ -454,5 +454,5 @@ public class PrestamoDAO implements CrudInterface<ClassPrestamo> {
         }
         return obj;
     }
-    
+
 }

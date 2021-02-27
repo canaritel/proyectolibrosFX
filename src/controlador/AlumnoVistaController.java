@@ -111,11 +111,12 @@ public class AlumnoVistaController implements Initializable {
         }
         offOnBotones(false);
         //si se pulsa ENTER en algún registro de la tabla y offOnbotones está en 1 y el objeto no es nulo
-        if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesAlumnos == 1) && (claseAlumno != null)) {
-            guardarDatosAlumno();
+        if (event.getCode().equals(KeyCode.ENTER) && (Variables.getOffBotonesAlumnos() == 1) && (claseAlumno != null)) {
+            guardarDatosAlumno();  //Esta condición solo se cumple cunando viene de Préstamo
             cerrarVentana();
-        } else if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesAlumnos == 0) && (claseAlumno != null)) {
-            Variables.textoFrm = "EDITAR ALUMNO";  //Lo procesamos como Editar
+            //PROCESAMOS COMO EDITAR si se pulsa ENTER en algún registro de la tabla y el objeto no es nulo
+        } else if (event.getCode().equals(KeyCode.ENTER) && (Variables.getOffBotonesAlumnos() == 0) && (claseAlumno != null)) {
+            Variables.setTextoFrm("EDITAR ALUMNO");  //Lo procesamos como Editar
             this.cargarFrmAlumno();
         }
     }
@@ -140,11 +141,12 @@ public class AlumnoVistaController implements Initializable {
         }
         offOnBotones(false);
         //Si se pulsa 2 veces en un registro y la variable offOnBotonesAlumno está en 1
-        if (event.getClickCount() == 2 && (Variables.offBotonesAlumnos == 1) && (claseAlumno != null)) {
-            guardarDatosAlumno();
+        if (event.getClickCount() == 2 && (Variables.getOffBotonesAlumnos() == 1) && (claseAlumno != null)) {
+            guardarDatosAlumno();  //Esta condición solo se cumple cunando viene de Préstamo
             cerrarVentana();
-        } else if (event.getClickCount() == 2 && (Variables.offBotonesAlumnos == 0) && (claseAlumno != null)) {
-            Variables.textoFrm = "EDITAR ALUMNO";  //Lo procesamos como Editar
+            //PROCESAMOS COMO EDITAR si se pulsa 2 click con el ratón en algún registro de la tabla y el objeto no es nulo
+        } else if (event.getClickCount() == 2 && (Variables.getOffBotonesAlumnos() == 0) && (claseAlumno != null)) {
+            Variables.setTextoFrm("EDITAR ALUMNO");  //Lo procesamos como Editar
             this.cargarFrmAlumno();
         }
     }
@@ -165,21 +167,21 @@ public class AlumnoVistaController implements Initializable {
     @FXML
     private void nuevoAlumnoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrm = "CREAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        Variables.setTextoFrm("CREAR ALUMNO");  //Se usará posteriormente en el controlador FrmAlumno
         this.cargarFrmAlumno();
     }
 
     @FXML
     private void editarAlumnoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar
-        Variables.textoFrm = "EDITAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        Variables.setTextoFrm("EDITAR ALUMNO");  //Se usará posteriormente en el controlador FrmAlumno
         this.cargarFrmAlumno();
     }
 
     @FXML
     private void eliminarAlumnoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrm = "ELIMINAR ALUMNO";  //Se usará posteriormente en el controlador FrmAlumno
+        Variables.setTextoFrm("ELIMINAR ALUMNO");  //Se usará posteriormente en el controlador FrmAlumno
         this.cargarFrmAlumno();
     }
 
@@ -195,7 +197,7 @@ public class AlumnoVistaController implements Initializable {
         items = datos.listar(filtro);  //llamamos al método "listar" dentro de la clase AlumnoDAO
         this.tablaAlumno.refresh();  //refrescamos los datos de la tabla (sobre todo es interesante cuando actualizamos)
         this.tablaAlumno.setItems(items); //mostramos las columnas de la tabla
-        lblRegistros.setText("Mostrando " + Variables.registrosMostrados + " de un total de " + datos.total() + " registros");
+        lblRegistros.setText("Mostrando " + Variables.getRegistrosMostrados() + " de un total de " + datos.total() + " registros");
     }
 
     private void cargarFrmAlumno() {
@@ -222,7 +224,7 @@ public class AlumnoVistaController implements Initializable {
             stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
             stage.initStyle(StageStyle.UTILITY); //desactivamos maximinar y minimizar
             //Pasamos los datos a la nueva ventana FrmAlumno mientras sea distinto a CREAR ALUMNO (se usará para EDITAR/ELIMINAR)
-            if (!"CREAR ALUMNO".equals(Variables.textoFrm)) {
+            if (!"CREAR ALUMNO".equals(Variables.getTextoFrm())) {
                 ctrFrmAlumno.pasarDatos(copiaAlumno);
             }
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
@@ -265,11 +267,11 @@ public class AlumnoVistaController implements Initializable {
         this.cambiarOpacidad(1);
         offOnBotones(true);
         this.txtFiltrarAlumnoTabla.setText("");
-        Variables.textoFrm = "";  //el texto superior que aparece al entrar en FrmAlumno
+        Variables.setTextoFrm("");  //el texto superior que aparece al entrar en FrmAlumno
     }
 
     private void offOnBotones(boolean estado) {
-        if (Variables.offBotonesAlumnos == 0) {
+        if (Variables.getOffBotonesAlumnos() == 0) {
             this.btnEditar.setDisable(estado);
             this.btnEliminar.setDisable(estado);
             lblInfoAlumno.setText("Haz doble clic o [ENTER] sobre el registro para Editar");
@@ -287,11 +289,11 @@ public class AlumnoVistaController implements Initializable {
     }
 
     private void guardarDatosAlumno() {
-        Variables.codigoAlumno = String.valueOf(copiaAlumno.getIdRegistro());
-        Variables.dni = copiaAlumno.getDni();
-        Variables.nombre = copiaAlumno.getNombre();
-        Variables.apellido1 = copiaAlumno.getApellido1();
-        Variables.apellido2 = copiaAlumno.getApellido2();
+        Variables.setCodigoAlumno(String.valueOf(copiaAlumno.getIdRegistro()));
+        Variables.setDni(copiaAlumno.getDni());
+        Variables.setNombre(copiaAlumno.getNombre());
+        Variables.setApellido1(copiaAlumno.getApellido1());
+        Variables.setApellido2(copiaAlumno.getApellido2());
     }
 
 }

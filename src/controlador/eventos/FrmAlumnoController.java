@@ -19,7 +19,6 @@ import negocio.Variables;
 
 public class FrmAlumnoController implements Initializable {
 
-    private MensajeFX mensaje;    //variable tipo MensajeFX para imprimir mensajes en pantalla
     private AlumnoNegocio CONTROL;  //instanciamos nuestra clase para realizar CRUD
     private int idRegistro;
     String dniAnterior;
@@ -47,10 +46,9 @@ public class FrmAlumnoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mensaje = new MensajeFX();  //instanciamos la clase mensaje para hacer uso de ella
         CONTROL = new AlumnoNegocio();  //instanciamos la clase AlumnoNegocio
-        lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
-        if ("ELIMINAR ALUMNO".equals(Variables.textoFrm)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
+        lblTextoFrm.setText(Variables.getTextoFrm());  //Envíamos el texto de la variable como título del campo label de nuestra ventana
+        if ("ELIMINAR ALUMNO".equals(Variables.getTextoFrm())) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
             txtDni.setEditable(false);
             txtNombre.setEditable(false);
             txtApellido1.setEditable(false);
@@ -89,38 +87,38 @@ public class FrmAlumnoController implements Initializable {
     public boolean comprobarDatos() {
         //Comprobamos los campos no estén vacíos
         if (txtDni.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'DNI' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'DNI' está vacío", "WARNING", posicionX_Y());
             txtDni.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtNombre.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Nombre' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Nombre' está vacío", "WARNING", posicionX_Y());
             txtNombre.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtApellido1.getText().isEmpty()) {
-            mensaje.printTexto("El campo 'Apellido1' está vacío", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Apellido1' está vacío", "WARNING", posicionX_Y());
             txtApellido1.requestFocus();
             return false; //devuelvo el código y no continuo
         }
         //Comprobamos los campos no excendan del tañano permitido
         if (txtApellido2.getText().length() > 21) {
-            mensaje.printTexto("El campo 'Apellido2' excede del tamaño de 21 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Apellido2' excede del tamaño de 21 carácteres", "WARNING", posicionX_Y());
             txtApellido2.requestFocus();
             return false; //devuelvo el código y no continuo
         }
         if (txtApellido1.getText().length() > 21) {
-            mensaje.printTexto("El campo 'Apellido1' excede del tamaño de 21 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Apellido1' excede del tamaño de 21 carácteres", "WARNING", posicionX_Y());
             txtApellido1.requestFocus();
             return false; //devuelvo el código y no continuo
         }
         if (txtNombre.getText().length() > 26) {
-            mensaje.printTexto("El campo 'Nombre' excede del tamaño de 26 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Nombre' excede del tamaño de 26 carácteres", "WARNING", posicionX_Y());
             txtNombre.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
         if (txtDni.getText().length() > 14) {
-            mensaje.printTexto("El campo 'Dni' excede del tamaño de 14 carácteres", "WARNING", posicionX_Y());
+            MensajeFX.printTexto("El campo 'Dni' excede del tamaño de 14 carácteres", "WARNING", posicionX_Y());
             txtDni.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo
         }
@@ -131,16 +129,16 @@ public class FrmAlumnoController implements Initializable {
     private void guardarDatos() {
         String respuesta;
         try {
-            switch (Variables.textoFrm) {
+            switch (Variables.getTextoFrm()) {
                 case "CREAR ALUMNO":
                     respuesta = this.CONTROL.insertar(txtDni.getText().strip().toUpperCase(), txtNombre.getText().strip().toUpperCase(),
                                                       txtApellido1.getText().strip().toUpperCase(), txtApellido2.getText().strip().toUpperCase());
                     if ("OK".equals(respuesta)) {
-                        mensaje.printTexto("Alumno añadido correctamente", "INFO", posicionX_Y());
+                        MensajeFX.printTexto("Alumno añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();
 
                     } else {
-                        mensaje.printTexto(respuesta, "ERROR", posicionX_Y());
+                        MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
                     break;
 
@@ -148,25 +146,25 @@ public class FrmAlumnoController implements Initializable {
                     respuesta = this.CONTROL.actualizar(idRegistro, txtDni.getText().strip().toUpperCase(), dniAnterior, txtNombre.getText().strip().toUpperCase(),
                                                         txtApellido1.getText().strip().toUpperCase(), txtApellido2.getText().strip().toUpperCase());
                     if ("OK".equals(respuesta)) {
-                        mensaje.printTexto("Alumno editado correctamente", "INFO", posicionX_Y());
+                        MensajeFX.printTexto("Alumno editado correctamente", "INFO", posicionX_Y());
                         this.limpiar();
                         Stage myStage = (Stage) this.txtDni.getScene().getWindow();
                         myStage.close();
                     } else {
-                        mensaje.printTexto(respuesta, "ERROR", posicionX_Y());
+                        MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
                     break;
 
                 case "ELIMINAR ALUMNO":
-                    if (mensaje.printTexto("¿Desea eliminar este registro?", "CONFIRM", posicionX_Y())) {
+                    if (MensajeFX.printTexto("¿Desea eliminar este registro?", "CONFIRM", posicionX_Y())) {
                         respuesta = this.CONTROL.eliminar(idRegistro);
                         if ("OK".equals(respuesta)) {
-                            mensaje.printTexto("Alumno eliminado correctamente", "INFO", posicionX_Y());
+                            MensajeFX.printTexto("Alumno eliminado correctamente", "INFO", posicionX_Y());
                             this.limpiar();
                             Stage myStage = (Stage) this.txtDni.getScene().getWindow();
                             myStage.close();
                         } else {
-                            mensaje.printTexto(respuesta, "ERROR", posicionX_Y());
+                            MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                         }
                     }
                     break;

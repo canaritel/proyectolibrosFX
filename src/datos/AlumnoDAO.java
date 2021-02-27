@@ -26,7 +26,7 @@ public class AlumnoDAO implements CrudInterface<ClassAlumno> {
 
     @Override
     public ObservableList<ClassAlumno> listar(String texto) {
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
         //Creamos un ObservablearrayList de tipo List donde guardar los datos de nuestra tabla
         ObservableList<ClassAlumno> registros = FXCollections.observableArrayList(); //Especial para javaFX
         String filtra = texto.toUpperCase();
@@ -40,7 +40,7 @@ public class AlumnoDAO implements CrudInterface<ClassAlumno> {
             rs = ps.executeQuery();
             while (rs.next()) {
                 registros.add(new ClassAlumno(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-                Variables.registrosMostrados = Variables.registrosMostrados + 1; //guardamos el total de registros mostrados
+                Variables.setRegistrosMostrados(Variables.getRegistrosMostrados() + 1); //guardamos el total de registros mostrados
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -134,7 +134,6 @@ public class AlumnoDAO implements CrudInterface<ClassAlumno> {
         return resp;
     }
 
-    
     public ClassAlumno devuelveAlumno(ClassAlumno obj) {
         String SQL = "SELECT * FROM alumnos WHERE registro=?";
         try {

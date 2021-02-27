@@ -55,9 +55,9 @@ public class FrmLibroController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CONTROL = new LibroNegocio();  //instanciamos la clase AlumnoNegocio
-        lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
+        lblTextoFrm.setText(Variables.getTextoFrm());  //Envíamos el texto de la variable como título del campo label de nuestra ventana
 
-        if ("ELIMINAR LIBRO".equals(Variables.textoFrm)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
+        if ("ELIMINAR LIBRO".equals(Variables.getTextoFrm())) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
             txtTitulo.setEditable(false);
             txtAutor.setEditable(false);
             txtEditorial.setEditable(false);
@@ -95,7 +95,7 @@ public class FrmLibroController implements Initializable {
     private void seleccionCombo(ActionEvent event) {
         //Este evento se produce cuando seleccionamos dentro de nuestro ComboBox
         String textoEstado = cmbEstado.getSelectionModel().getSelectedItem();
-        if (!"ELIMINAR LIBRO".equals(Variables.textoFrm) || (!textoEstado.equalsIgnoreCase("Seleccione estado"))) {
+        if (!"ELIMINAR LIBRO".equals(Variables.getTextoFrm()) || (!textoEstado.equalsIgnoreCase("Seleccione estado"))) {
             txtEstado.setText(textoEstado); //solo enviamos el texto cuando es distinto de Eliminar
         }
     }
@@ -167,7 +167,7 @@ public class FrmLibroController implements Initializable {
     private void guardarDatos() {
         String respuesta;
         try {
-            switch (Variables.textoFrm) {
+            switch (Variables.getTextoFrm()) {
                 case "CREAR LIBRO":
                     respuesta = this.CONTROL.insertar(txtTitulo.getText().strip().toUpperCase(), txtAutor.getText().strip().toUpperCase(),
                                                       txtEditorial.getText().strip().toUpperCase(), txtAsignatura.getText().strip().toUpperCase(),

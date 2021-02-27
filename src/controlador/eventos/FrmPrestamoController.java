@@ -103,9 +103,9 @@ public class FrmPrestamoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CONTROL = new PrestamoNegocio();  //instanciamos la clase Negocio
-        lblTextoFrm.setText(Variables.textoFrm);  //Envíamos el texto de la variable como título del campo label de nuestra ventana
+        lblTextoFrm.setText(Variables.getTextoFrm());  //Envíamos el texto de la variable como título del campo label de nuestra ventana
         this.OffcamposInfo();  //desactivo los campos textfield de información adicional
-        if ("ELIMINAR PRÉSTAMO".equals(Variables.textoFrm)) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
+        if ("ELIMINAR PRÉSTAMO".equals(Variables.getTextoFrm())) { //dependiendo de la acción a realizar (NUEVO/EDITAR/ELIMINAR) activamos/desactivamos botones
             this.OnOffCampos(false);
             this.OnOffBotones(true);
         } else {
@@ -136,7 +136,7 @@ public class FrmPrestamoController implements Initializable {
 
     @FXML
     private void seleccionAlumno(ActionEvent event) {
-        Variables.offBotonesAlumnos = 1; //activamos este valor para que los botones en la nueva ventana Alumno se desactiven
+        Variables.setOffBotonesAlumnos(1); //activamos este valor para que los botones en la nueva ventana Alumno se desactiven
         try {
             //cargamos la vista FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AlumnoVista.fxml"));
@@ -158,7 +158,7 @@ public class FrmPrestamoController implements Initializable {
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
-            Variables.offBotonesAlumnos = 0; //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Alumno
+            Variables.setOffBotonesAlumnos(0); //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Alumno
             pasaDatosAlumnoInfo();  //pasamos los datos capturados a los campos textfield de información adicional
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
@@ -167,7 +167,7 @@ public class FrmPrestamoController implements Initializable {
 
     @FXML
     private void seleccionLibro(ActionEvent event) {
-        Variables.offBotonesLibros = 1; //activamos este valor para que los botones en la nueva ventana Libro se desactiven
+        Variables.setOffBotonesLibros(1); //activamos este valor para que los botones en la nueva ventana Libro se desactiven
         try {
             //cargamos la vista FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/LibroVista.fxml"));
@@ -189,7 +189,7 @@ public class FrmPrestamoController implements Initializable {
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
-            Variables.offBotonesLibros = 0; //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Libro
+            Variables.setOffBotonesLibros(0); //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Libro
             pasaDatosLibroInfo();
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
@@ -209,7 +209,7 @@ public class FrmPrestamoController implements Initializable {
         }
     }
 
-    //Este método viene de LibroVistaController y nos pasa los datos de los campos a editar/eliminar
+    //Este método viene de [Alumno/Libro]VistaController y nos pasa los datos de los campos a editar/eliminar
     public void pasarDatos(ClassPrestamo objPrestamo) {
         claseAlumno = new ClassAlumno(); //debemos instaciar una clase alumno para poder cargar los datos específicos de dichos alumnos
         claseLibro = new ClassLibro();  //debemos instaciar una clase libro para poder cargar los datos específicos de dichos libros
@@ -351,7 +351,7 @@ public class FrmPrestamoController implements Initializable {
     private void guardarDatos() {
         String respuesta;
         try {
-            switch (Variables.textoFrm) {
+            switch (Variables.getTextoFrm()) {
                 case "CREAR PRÉSTAMO":
                     respuesta = this.CONTROL.insertar(txtCodAlumnoPresta.getText(), txtCodLibroPresta.getText(), ParseFecha(txtFechaPrestamoPresta.getText()),
                                                       ParseFecha(txtFechaDevoPresta.getText()), txtEstado.getText().strip().toUpperCase());
@@ -399,19 +399,19 @@ public class FrmPrestamoController implements Initializable {
     }
 
     private void pasaDatosAlumnoInfo() {
-        infotxtDni.setText(Variables.dni);
-        infotxtNombre.setText(Variables.nombre);
-        infotxtApellido1.setText(Variables.apellido1);
-        infotxtApellido2.setText(Variables.apellido2);
-        txtCodAlumnoPresta.setText(Variables.codigoAlumno);
+        infotxtDni.setText(Variables.getDni());
+        infotxtNombre.setText(Variables.getNombre());
+        infotxtApellido1.setText(Variables.getApellido1());
+        infotxtApellido2.setText(Variables.getApellido2());
+        txtCodAlumnoPresta.setText(Variables.getCodigoAlumno());
     }
 
     private void pasaDatosLibroInfo() {
-        infotxtTitulo.setText(Variables.titulo);
-        infotxtAutor.setText(Variables.autor);
-        infotxtEditorial.setText(Variables.editorial);
-        infotxtAsignatura.setText(Variables.asignatura);
-        txtCodLibroPresta.setText(Variables.codigoLibro);
+        infotxtTitulo.setText(Variables.getTitulo());
+        infotxtAutor.setText(Variables.getAutor());
+        infotxtEditorial.setText(Variables.getEditorial());
+        infotxtAsignatura.setText(Variables.getAsignatura());
+        txtCodLibroPresta.setText(Variables.getCodigoLibro());
     }
 
     public java.sql.Date ParseFecha(String fechaPrestamo) {

@@ -12,7 +12,7 @@ public class LibroNegocio {
     public LibroNegocio() {
         this.DATOS = new LibroDAO();
         this.objeto = new ClassLibro();
-        Variables.registrosMostrados = 0;
+        Variables.setRegistrosMostrados(0);
     }
 
     public String insertar(String titulo, String autor, String editorial, String asignatura, String estado) throws SQLException {
@@ -86,7 +86,7 @@ public class LibroNegocio {
     }
 
     public int totalMostrados() throws SQLException {
-        return Variables.registrosMostrados;
+        return Variables.getRegistrosMostrados();
     }
 
 }

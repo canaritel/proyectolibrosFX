@@ -48,9 +48,9 @@ public class ConexionPool {
 
     public Connection conectar() throws SQLException {
         //instanciamos las distintos tipos de conexión a la BD usando el ****** PATRÓN FACTORY *******
-        if (Variables.varLogin == false) { //comprobamos si no estamos logeados
+        if (Variables.isVarLogin() == false) { //comprobamos si no estamos logeados
             //llamamos al método para cargar los valores que hayamos seleccionado
-            switch (Variables.opcionCheckBox) {
+            switch (Variables.getOpcionCheckBox()) {
                 case 1:
                     if (conexionlocal == null) {
                         conexionlocal = new ConexionMySQLLocal();

@@ -102,11 +102,12 @@ public class LibroVistaController implements Initializable {
         }
         offOnBotones(false);
         //si se pulsa ENTER en algún registro de la tabla y offOnbotones está en 1 y el objeto no es nulo
-        if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
-            guardarDatosLibro();
+        if (event.getCode().equals(KeyCode.ENTER) && (Variables.getOffBotonesLibros() == 1) && (claseLibro != null)) {
+            guardarDatosLibro();  //Esta condición solo se cumple cunando viene de Préstamo
             cerrarVentana();
-        } else if (event.getCode().equals(KeyCode.ENTER) && (Variables.offBotonesLibros == 0) && (claseLibro != null)) {
-            Variables.textoFrm = "EDITAR LIBRO";  //Lo procesamos como Editar
+            //PROCESAMOS COMO EDITAR si se pulsa ENTER en algún registro de la tabla y el objeto no es nulo
+        } else if (event.getCode().equals(KeyCode.ENTER) && (Variables.getOffBotonesLibros() == 0) && (claseLibro != null)) {
+            Variables.setTextoFrm("EDITAR LIBRO");  //Lo procesamos como Editar
             this.cargarFrmLibro();
         }
     }
@@ -120,11 +121,12 @@ public class LibroVistaController implements Initializable {
         }
         offOnBotones(false);
         //Si se pulsa 2 veces en un registro y la variable offOnBotonesLibro está en 1
-        if (event.getClickCount() == 2 && (Variables.offBotonesLibros == 1) && (claseLibro != null)) {
-            guardarDatosLibro();
+        if (event.getClickCount() == 2 && (Variables.getOffBotonesLibros() == 1) && (claseLibro != null)) {
+            guardarDatosLibro();  //Esta condición solo se cumple cunando viene de Préstamo
             cerrarVentana();
-        } else if (event.getClickCount() == 2 && (Variables.offBotonesLibros == 0) && (claseLibro != null)) {
-            Variables.textoFrm = "EDITAR LIBRO";  //Lo procesamos como Editar
+            //PROCESAMOS COMO EDITAR si se pulsa 2 click con el ratón en algún registro de la tabla y el objeto no es nulo
+        } else if (event.getClickCount() == 2 && (Variables.getOffBotonesLibros() == 0) && (claseLibro != null)) {
+            Variables.setTextoFrm("EDITAR LIBRO");  //Lo procesamos como Editar
             this.cargarFrmLibro();
         }
     }
@@ -144,21 +146,21 @@ public class LibroVistaController implements Initializable {
     @FXML
     private void nuevoLibroTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrm = "CREAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
+        Variables.setTextoFrm("CREAR LIBRO");  //Se usará posteriormente en el controlador FrmLibro
         this.cargarFrmLibro();
     }
 
     @FXML
     private void editarLibroTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrm = "EDITAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
+        Variables.setTextoFrm("EDITAR LIBRO");  //Se usará posteriormente en el controlador FrmLibro
         this.cargarFrmLibro();
     }
 
     @FXML
     private void eliminarLibroTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
-        Variables.textoFrm = "ELIMINAR LIBRO";  //Se usará posteriormente en el controlador FrmLibro
+        Variables.setTextoFrm("ELIMINAR LIBRO");  //Se usará posteriormente en el controlador FrmLibro
         this.cargarFrmLibro();
     }
 
@@ -174,7 +176,7 @@ public class LibroVistaController implements Initializable {
         items = datos.listar(filtro);  //llamamos al método "listar" dentro de la clase LibroDAO
         this.tablaLibro.refresh();  //refrescamos los datos de la tabla (sobre todo es interesante cuando actualizamos)
         this.tablaLibro.setItems(items); //mostramos las columnas de la tabla
-        lblRegistros.setText("Mostrando " + Variables.registrosMostrados + " de un total de " + datos.total() + " registros");
+        lblRegistros.setText("Mostrando " + Variables.getRegistrosMostrados() + " de un total de " + datos.total() + " registros");
     }
 
     private void cargarFrmLibro() {
@@ -201,7 +203,7 @@ public class LibroVistaController implements Initializable {
             stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
             stage.initStyle(StageStyle.UTILITY); //desactivamos maximinar y minimizar
             //Pasamos los datos a la nueva ventana FrmAlumno mientras sea distinto a CREAR LIBRO (se usará para EDITAR/ELIMINAR)
-            if (!"CREAR LIBRO".equals(Variables.textoFrm)) {
+            if (!"CREAR LIBRO".equals(Variables.getTextoFrm())) {
                 ctrFrmLibro.pasarDatos(copiaLibro);
             }
             stage.showAndWait(); //mostramos la nueva ventana y esperamos
@@ -243,11 +245,11 @@ public class LibroVistaController implements Initializable {
         this.cambiarOpacidad(1);
         offOnBotones(true);
         this.txtFiltrarLibroTabla.setText("");
-        Variables.textoFrm = "";  //el texto superior que aparece al entrar en FrmAlumno
+        Variables.setTextoFrm("");  //el texto superior que aparece al entrar en FrmAlumno
     }
 
     private void offOnBotones(boolean estado) {
-        if (Variables.offBotonesLibros == 0) {
+        if (Variables.getOffBotonesLibros() == 0) {
             this.btnEditar.setDisable(estado);
             this.btnEliminar.setDisable(estado);
             lblInfoLibro.setText("Haz doble clic o [ENTER] sobre el registro para Editar");
@@ -265,11 +267,11 @@ public class LibroVistaController implements Initializable {
     }
 
     private void guardarDatosLibro() {
-        Variables.codigoLibro = String.valueOf(copiaLibro.getCodigo());
-        Variables.titulo = copiaLibro.getTitulo();
-        Variables.autor = copiaLibro.getAutor();
-        Variables.editorial = copiaLibro.getEditorial();
-        Variables.asignatura = copiaLibro.getAsignatura();
+        Variables.setCodigoLibro(String.valueOf(copiaLibro.getCodigo()));
+        Variables.setTitulo(copiaLibro.getTitulo());
+        Variables.setAutor(copiaLibro.getAutor());
+        Variables.setEditorial(copiaLibro.getEditorial());
+        Variables.setAsignatura(copiaLibro.getAsignatura());
     }
 
 }
