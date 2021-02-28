@@ -458,6 +458,7 @@ public class PrestamoVistaController implements Initializable {
         lblInfoPrestamoL.setText("Haz doble clic o [ENTER] sobre el registro para Editar");
     }
 
+    //Este método pasa los datos de ClassPrestamosAlumno o ClassPrestamoLibro a una de tipo ClassPrestamo = copiaPrestamo
     private ClassPrestamo convertirDatosClase(ClassPrestamoAlumno clasePrestamoA, ClassPrestamoLibro clasePrestamoLibro) {
         switch (tabSeleccionado) {
             case 1:

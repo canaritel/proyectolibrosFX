@@ -358,8 +358,7 @@ public class FrmPrestamoController implements Initializable {
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Préstamo añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();
-                        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
-                        myStage.close();
+                        this.cerrarVentana();
                     } else {
                         MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
@@ -371,8 +370,7 @@ public class FrmPrestamoController implements Initializable {
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Libro editado correctamente", "INFO", posicionX_Y());
                         this.limpiar();
-                        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
-                        myStage.close();
+                        this.cerrarVentana();
                     } else {
                         MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
@@ -384,8 +382,7 @@ public class FrmPrestamoController implements Initializable {
                         if ("OK".equals(respuesta)) {
                             MensajeFX.printTexto("Libro eliminado correctamente", "INFO", posicionX_Y());
                             this.limpiar();
-                            Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
-                            myStage.close();
+                            this.cerrarVentana();
                         } else {
                             MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                         }
@@ -455,6 +452,11 @@ public class FrmPrestamoController implements Initializable {
         } else {
             return null;
         }
+    }
+
+    private void cerrarVentana() {
+        Stage myStage = (Stage) this.txtEstado.getScene().getWindow();
+        myStage.close();
     }
 
 }

@@ -175,7 +175,7 @@ public class FrmLibroController implements Initializable {
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Libro añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();
-
+                        this.cerrarVentana();
                     } else {
                         MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
@@ -188,8 +188,7 @@ public class FrmLibroController implements Initializable {
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Libro editado correctamente", "INFO", posicionX_Y());
                         this.limpiar();
-                        Stage myStage = (Stage) this.txtTitulo.getScene().getWindow();
-                        myStage.close();
+                        this.cerrarVentana();
                     } else {
                         MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
@@ -201,8 +200,7 @@ public class FrmLibroController implements Initializable {
                         if ("OK".equals(respuesta)) {
                             MensajeFX.printTexto("Libro eliminado correctamente", "INFO", posicionX_Y());
                             this.limpiar();
-                            Stage myStage = (Stage) this.txtTitulo.getScene().getWindow();
-                            myStage.close();
+                            this.cerrarVentana();
                         } else {
                             MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                         }
@@ -240,6 +238,11 @@ public class FrmLibroController implements Initializable {
         itemsCombo.addAll("Nuevo", "Nuevo seminuevo", "Usado", "Usado nuevo", "Usado seminuevo", "Usado estropeado", "Restaurado", "Estropeado");
         cmbEstado.setItems(itemsCombo); //muestro los iconos
         cmbEstado.setPromptText("Seleccione estado");
+    }
+
+    private void cerrarVentana() {
+        Stage myStage = (Stage) this.txtTitulo.getScene().getWindow();
+        myStage.close();
     }
 
 }

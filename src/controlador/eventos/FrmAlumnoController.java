@@ -136,7 +136,7 @@ public class FrmAlumnoController implements Initializable {
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Alumno añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();
-
+                        this.cerrarVentana();
                     } else {
                         MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
@@ -148,8 +148,7 @@ public class FrmAlumnoController implements Initializable {
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Alumno editado correctamente", "INFO", posicionX_Y());
                         this.limpiar();
-                        Stage myStage = (Stage) this.txtDni.getScene().getWindow();
-                        myStage.close();
+                        this.cerrarVentana();
                     } else {
                         MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                     }
@@ -161,8 +160,7 @@ public class FrmAlumnoController implements Initializable {
                         if ("OK".equals(respuesta)) {
                             MensajeFX.printTexto("Alumno eliminado correctamente", "INFO", posicionX_Y());
                             this.limpiar();
-                            Stage myStage = (Stage) this.txtDni.getScene().getWindow();
-                            myStage.close();
+                            this.cerrarVentana();
                         } else {
                             MensajeFX.printTexto(respuesta, "ERROR", posicionX_Y());
                         }
@@ -191,6 +189,11 @@ public class FrmAlumnoController implements Initializable {
         txtNombre.setText("");
         txtApellido1.setText("");
         txtApellido2.setText("");
+    }
+
+    public void cerrarVentana() {
+        Stage myStage = (Stage) this.txtDni.getScene().getWindow();
+        myStage.close();
     }
 
 }
