@@ -8,12 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -26,14 +25,21 @@ public class PrincipalVistaController implements Initializable {
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private double[] posicion;  //posición de la ventana en eje X-Y
-    String cargarVista; //elejimos que tipo de vista cargamos
+    //String cargarVista; //elejimos que tipo de vista cargamos
+    private VBox ventana; //creamos un objeto de tipo VBox (Todas nuestras ventanas hijas comienzan por este tipo de elemento)
 
-    @FXML
-    private Menu mnuAlumno;
     @FXML
     private Font x3;
     @FXML
     private Label lblTextoInferior;
+    @FXML
+    private VBox vboxPrincipal;
+    @FXML
+    private MenuItem mnuiCerrarAlumno;
+    @FXML
+    private MenuItem mnuiCerrarLibro;
+    @FXML
+    private MenuItem mnuiCerrarPrestamo;
 
     /**
      * Initializes the controller class.
@@ -63,8 +69,15 @@ public class PrincipalVistaController implements Initializable {
 
     @FXML
     private void CerrarVentana(ActionEvent event) {
-        if (stage != null) {
-            stage.close();
+        Object evt = event.getSource();
+        if (evt.equals(mnuiCerrarAlumno)) {
+            vboxPrincipal.setVisible(false); //hacemos la ventana no visible
+        }
+        if (evt.equals(mnuiCerrarPrestamo)) {
+            vboxPrincipal.setVisible(false); //hacemos la ventana no visible
+        }
+        if (evt.equals(mnuiCerrarLibro)) {
+            vboxPrincipal.setVisible(false); //hacemos la ventana no visible
         }
     }
 
@@ -74,6 +87,17 @@ public class PrincipalVistaController implements Initializable {
     }
 
     public void cargarVistaAlumno() {
+        try {
+            ventana = FXMLLoader.load(getClass().getResource("/vista/AlumnoVista.fxml"));
+            vboxPrincipal.getChildren().setAll(ventana);
+            vboxPrincipal.setVisible(true);
+
+        } catch (IOException ex) {
+            System.err.println("Error la carga de vista alumno " + ex);
+        }
+    }
+
+    /*   CAMBIAMOS NUESTRO CÓDGIGO POR EL NUEVO (MIRAR ARRIBA)
         try {
             //cargamos la vista FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AlumnoVista.fxml"));
@@ -99,9 +123,19 @@ public class PrincipalVistaController implements Initializable {
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
+     */
+    public void cargarVistaLibro() {
+        try {
+            ventana = FXMLLoader.load(getClass().getResource("/vista/LibroVista.fxml"));
+            vboxPrincipal.getChildren().setAll(ventana);
+            vboxPrincipal.setVisible(true);
+
+        } catch (IOException ex) {
+            System.err.println("Error la carga de vista libro" + ex);
+        }
     }
 
-    public void cargarVistaLibro() {
+    /*
         try {
             //cargamos la vista FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/LibroVista.fxml"));
@@ -127,9 +161,19 @@ public class PrincipalVistaController implements Initializable {
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
+     */
+    public void cargarVistaPrestamo() {
+        try {
+            ventana = FXMLLoader.load(getClass().getResource("/vista/PrestamoVista.fxml"));
+            vboxPrincipal.getChildren().setAll(ventana);
+            vboxPrincipal.setVisible(true);
+
+        } catch (IOException ex) {
+            System.err.println("Error la carga de vista préstamo " + ex);
+        }
     }
 
-    public void cargarVistaPrestamo() {
+    /*
         try {
             //cargamos la vista FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/PrestamoVista.fxml"));
@@ -155,31 +199,5 @@ public class PrincipalVistaController implements Initializable {
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
-    }
-
-    //este método obtiene la posición de la actual ventana en coordenadas x, y
-    //vamos a usar estos datos para posicionar la ventana correctamente
-    public double[] obtenPosicionX_Y() {
-        double[] posicionxy = new double[2];
-        //creamos una nueva ventana temporal capturando de cualquier btn/lbl la escena y ventana
-        //se entiende que los btn o lbl forman parte de la ventana que deseamos obtener datos
-        Stage myStage = (Stage) this.lblTextoInferior.getScene().getWindow();
-        posicionxy[0] = myStage.getX();
-        posicionxy[1] = myStage.getY();
-        return posicionxy;
-    }
-
-    public void ventanaPosicion(int x, int y) {
-        posicion = obtenPosicionX_Y();
-        posicion[0] = posicion[0] + x;
-        posicion[1] = posicion[1] + y;
-        stage.setX(posicion[0]);
-        stage.setY(posicion[1]);
-    }
-
-    public void cambiarOpacidad(double valor) {
-        Stage myStage = (Stage) this.lblTextoInferior.getScene().getWindow();
-        myStage.setOpacity(valor);
-    }
-
+     */
 }

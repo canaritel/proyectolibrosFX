@@ -178,8 +178,13 @@ public class FrmAlumnoController implements Initializable {
     public double[] posicionX_Y() {
         double[] posicion = new double[2];
         Stage myStage = (Stage) this.txtDni.getScene().getWindow();
-        posicion[0] = myStage.getX() - 40;
-        posicion[1] = myStage.getY();
+        int frmX = 420 / 2; //tamaño ancho componente FrmAlumno
+        int frmY = 500 / 2; //tamaño alto componente FrmAlumno
+        int x = (int) (myStage.getWidth() / 2);
+        int y = (int) (myStage.getHeight() / 2);
+        posicion[0] = myStage.getX() + (x - frmX);
+        posicion[1] = myStage.getY() + (y - frmY);
+
         return posicion;
     }
 

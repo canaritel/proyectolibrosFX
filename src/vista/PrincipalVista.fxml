@@ -44,16 +44,15 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PrincipalVistaController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PrincipalVistaController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu fx:id="mnuAlumno" mnemonicParsing="false" text="Alumnos">
+        <Menu mnemonicParsing="false" text="Alumnos">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#CrudAlumno" text="Crear...">
                      <graphic>
@@ -112,7 +111,7 @@
                         </ImageView>
                      </graphic></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
+            <MenuItem fx:id="mnuiCerrarAlumno" mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -213,7 +212,7 @@
                         </ImageView>
                      </graphic></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
+                  <MenuItem fx:id="mnuiCerrarLibro" mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -293,7 +292,7 @@
                         </ImageView>
                      </graphic></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
+                  <MenuItem fx:id="mnuiCerrarPrestamo" mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -506,9 +505,9 @@
             <Insets />
          </VBox.margin>
     </MenuBar>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+      <VBox fx:id="vboxPrincipal" VBox.vgrow="ALWAYS">
          <children>
-            <HBox alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
+            <HBox alignment="BASELINE_CENTER" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="565.0" fitWidth="896.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
@@ -520,16 +519,8 @@
                   </ImageView>
                </children>
             </HBox>
-            <ImageView fitHeight="565.0" fitWidth="896.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
-               <image>
-                  <Image url="@../imagenes/logo%20javafx2.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
          </children>
-      </AnchorPane>
+      </VBox>
     <HBox id="HBox" alignment="CENTER" maxHeight="30.0" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
       <children>
         <Label fx:id="lblTextoInferior" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="14.0" prefWidth="250.0" text="JavaFX creado por Antonio González Bonilla" textFill="#9f9f9f" HBox.hgrow="ALWAYS">

@@ -21,8 +21,8 @@ public class MensajeFX {
         Alert alertWarning = new Alert(Alert.AlertType.WARNING);
         Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION);
         //ponemos las coordenadas a las ventanas de mensajes
-        posicion[0] = posicion[0] + 40;  //ajustamos la posición en eje X
-        posicion[1] = posicion[1] + 150; //ajustamos la posición en el eje Y
+        posicion[0] = posicion[0] - 5;  //ajustamos la posición en eje X
+        posicion[1] = posicion[1] + 50; //ajustamos la posición en el eje Y
         alertInfo.setX(posicion[0]);   //seteamos la posición en eje X de la ventana de mensaje
         alertInfo.setY(posicion[1]);   //seteamos la posición en el eje Y de la ventana de mensaje
         alertWarning.setX(posicion[0]);

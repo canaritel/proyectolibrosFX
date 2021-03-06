@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="500.0" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PrestamoVistaController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="500.0" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PrestamoVistaController">
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+            <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
               <tabs>
-                <Tab fx:id="tabListaPrestaCodigo" text="Listado por código">
+                <Tab fx:id="tabListaPrestaCodigo" text="Listado Préstamo por código">
                      <content>
-                        <VBox>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <HBox maxHeight="50.0" styleClass="JMetroStyleClass.BACKGROUND" VBox.vgrow="ALWAYS">
+                              <HBox maxHeight="50.0" maxWidth="1.7976931348623157E308" styleClass="JMetroStyleClass.BACKGROUND" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Label text="Filtrar:">
                                        <font>
@@ -117,9 +117,9 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox VBox.vgrow="ALWAYS">
+                              <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView fx:id="tablaPrestamo" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
+                                    <TableView fx:id="tablaPrestamo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
                                       <columns>
                                         <TableColumn fx:id="colRegistro" maxWidth="100.0" minWidth="100.0" prefWidth="136.0" text="Registro" />
                                         <TableColumn fx:id="ColCodAlumno" maxWidth="400.0" minWidth="120.0" prefWidth="150.0" text="Cod. Alumno" />
@@ -174,7 +174,7 @@
                         </VBox>
                      </content>
                 </Tab>
-                  <Tab fx:id="tabListaPrestaAlumno" onSelectionChanged="#pulsoTabListaAlumno" text="Listado por alumnos">
+                  <Tab fx:id="tabListaPrestaAlumno" onSelectionChanged="#pulsoTabListaAlumno" text="Listado Préstamo por alumnos">
                      <content>
                         <VBox>
                            <children>
@@ -270,9 +270,9 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox VBox.vgrow="ALWAYS">
+                              <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView fx:id="tablaPrestamoA" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
+                                    <TableView fx:id="tablaPrestamoA" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
                                        <columns>
                                           <TableColumn fx:id="colRegistroA" maxWidth="100.0" minWidth="80.0" prefWidth="90.0" text="Registro" />
                                           <TableColumn fx:id="colFechaPrestamoA" maxWidth="110.0" minWidth="100.0" prefWidth="100.0" text="Fecha Préstamo" />
@@ -331,7 +331,7 @@
                         </VBox>
                      </content>
                   </Tab>
-                  <Tab fx:id="tabListaPrestaLibro" onSelectionChanged="#pulsoTabListaLibro" text="Listado por libros">
+                  <Tab fx:id="tabListaPrestaLibro" onSelectionChanged="#pulsoTabListaLibro" text="Listado Préstamo por libros">
                      <content>
                         <VBox>
                            <children>
@@ -427,9 +427,9 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox VBox.vgrow="ALWAYS">
+                              <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView fx:id="tablaPrestamoLibro" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
+                                    <TableView fx:id="tablaPrestamoLibro" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
                                        <columns>
                                           <TableColumn fx:id="colRegistroPrestaLibro" maxWidth="100.0" minWidth="70.0" prefWidth="70.0" text="Registro" />
                                           <TableColumn fx:id="colFPrestamoPrestaLibro" maxWidth="120.0" minWidth="100.0" prefWidth="100.0" text="Fecha Préstamo" />

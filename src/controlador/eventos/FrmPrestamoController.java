@@ -147,6 +147,7 @@ public class FrmPrestamoController implements Initializable {
             //creamos la nueva escena que viene del padre
             scene = new Scene(root);
             stage = new Stage();    //creamos la nueva ventana
+            stage.setHeight(600); //asignamos alto
             stage.setTitle("Gestión de Alumnos"); //ponemos un título
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
@@ -178,6 +179,7 @@ public class FrmPrestamoController implements Initializable {
             //creamos la nueva escena que viene del padre
             scene = new Scene(root);
             stage = new Stage();    //creamos la nueva ventana
+            stage.setHeight(600); //asignamos alto
             stage.setTitle("Gestión de Libros"); //ponemos un título
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena

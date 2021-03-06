@@ -15,15 +15,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="500.0" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.LibroVistaController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.LibroVistaController">
    <children>
-      <HBox VBox.vgrow="ALWAYS">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+            <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
               <tabs>
-                <Tab text="Listado">
+                <Tab text="Listado Libros">
                      <content>
-                        <VBox>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <HBox maxHeight="50.0" styleClass="JMetroStyleClass.BACKGROUND" VBox.vgrow="ALWAYS">
                                  <children>
@@ -117,15 +117,15 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox VBox.vgrow="ALWAYS">
+                              <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView fx:id="tablaLibro" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
+                                    <TableView fx:id="tablaLibro" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyReleased="#posicionTeclaTabla" onMouseClicked="#posicionRatonTabla" HBox.hgrow="ALWAYS">
                                       <columns>
-                                        <TableColumn fx:id="colCodigo" maxWidth="100.0" minWidth="100.0" prefWidth="136.0" text="Código" />
-                                        <TableColumn fx:id="ColTitulo" maxWidth="400.0" minWidth="120.0" prefWidth="150.0" text="Título" />
-                                          <TableColumn fx:id="ColAutor" maxWidth="350.0" minWidth="100.0" prefWidth="120.0" text="Autor" />
-                                          <TableColumn fx:id="colEditorial" maxWidth="350.0" minWidth="100.0" prefWidth="120.0" text="Editorial" />
-                                          <TableColumn fx:id="colAsignatura" maxWidth="200.0" minWidth="100.0" prefWidth="120.0" text="Asignatura" />
+                                        <TableColumn fx:id="colCodigo" maxWidth="200.0" minWidth="100.0" prefWidth="136.0" text="Código" />
+                                        <TableColumn fx:id="ColTitulo" maxWidth="500.0" minWidth="120.0" prefWidth="150.0" text="Título" />
+                                          <TableColumn fx:id="ColAutor" maxWidth="450.0" minWidth="100.0" prefWidth="120.0" text="Autor" />
+                                          <TableColumn fx:id="colEditorial" maxWidth="450.0" minWidth="100.0" prefWidth="120.0" text="Editorial" />
+                                          <TableColumn fx:id="colAsignatura" maxWidth="400.0" minWidth="100.0" prefWidth="120.0" text="Asignatura" />
                                           <TableColumn fx:id="colEstado" maxWidth="200.0" minWidth="70.0" prefWidth="100.0" text="Estado" />
                                       </columns>
                                        <HBox.margin>
@@ -145,7 +145,7 @@
             </TabPane>
          </children>
       </HBox>
-      <HBox prefHeight="20.0" prefWidth="200.0">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="200.0">
          <children>
             <Label fx:id="lblInfoLibro" prefHeight="17.0" prefWidth="546.0" text="INFORMACIÓN:">
                <HBox.margin>

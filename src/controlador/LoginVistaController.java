@@ -174,8 +174,8 @@ public class LoginVistaController implements Initializable {
             stage.setTitle("Menú principal JavaFX"); //ponemos un título
             stage.setScene(scene);
             //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización
-            jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
-            jMetro.setScene(scene);
+            //jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
+            //jMetro.setScene(scene);
             //Cargamos el resto de componentes de la vista
             stage.show();   //mostramos la nueva ventana
             //Al activar la nueva ventana es prefirible cerrar la ventana anterior abierta, para lo cual vamos a realizar los siguientes pasos

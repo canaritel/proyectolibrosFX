@@ -223,15 +223,17 @@ public class LibroVistaController implements Initializable {
         //creamos una nueva ventana temporal capturando de cualquier btn/lbl la escena y ventana
         //se entiende que los btn o lbl forman parte de la ventana que deseamos obtener datos
         Stage myStage = (Stage) this.lblRegistros.getScene().getWindow();
-        posicionxy[0] = myStage.getX();
-        posicionxy[1] = myStage.getY();
+        int frmX = 420 / 2; //tamaño ancho componente FrmLibro
+        int frmY = 500 / 2; //tamaño alto componente FrmLibro
+        int x = (int) (myStage.getWidth() / 2);
+        int y = (int) (myStage.getHeight() / 2);
+        posicionxy[0] = myStage.getX() + (x - frmX);
+        posicionxy[1] = myStage.getY() + (y - frmY);
         return posicionxy;
     }
 
     private void ventanaPosicion() {
         posicion = obtenPosicionX_Y();
-        posicion[0] = posicion[0] + 165;
-        posicion[1] = posicion[1] + 105;
         stage.setX(posicion[0]);
         stage.setY(posicion[1]);
     }

@@ -212,6 +212,7 @@ public class PrestamoVistaController implements Initializable {
     private void posicionTeclaTabla(KeyEvent event) {
         //cuando nos desplazamos con el cursor por la tabla capturamos la información de la fila
         tabSeleccionado = 0;
+
         if (tabListaPrestaCodigo.isSelected()) {
             clasePrestamo = tablaPrestamo.getSelectionModel().getSelectedItem();
             if (clasePrestamo != null) {  //si no es NULL capturamos los datos de la fila
@@ -239,13 +240,13 @@ public class PrestamoVistaController implements Initializable {
             botonOffEditaEliminaLibro(false);
         }
 
-        //PROCESAMOS COMO EDITAR si se pulsa ENTER en algún registro de la tabla y el objeto no es nulo
-        if (event.getCode().equals(KeyCode.ENTER) && (clasePrestamo != null || clasePrestamoA != null || clasePrestamoLibro != null)) {
+        //PROCESAMOS COMO EDITAR si se pulsa ENTER en algún registro de la tabla
+        if (event.getCode().equals(KeyCode.ENTER)) {
             Variables.setTextoFrm("EDITAR PRÉSTAMO");  //Se usará posteriormente en el controlador FrmPrestamo
-            if (tabSeleccionado != 0) {
+            if (tabSeleccionado > 1) {
                 copiaPrestamo = convertirDatosClase(copiaPrestamoA, copiaPrestamoLibro); //usamos este método cuando la selección se realiza en tablas distintas a la general
-                this.cargarFrmPrestamo();
             }
+            this.cargarFrmPrestamo();
         }
     }
 
@@ -253,6 +254,7 @@ public class PrestamoVistaController implements Initializable {
     private void posicionRatonTabla(MouseEvent event) {
         //cuando pulsamos con el ratón en algún registro de la tabla capturamos la información de la fila
         tabSeleccionado = 0;
+
         if (tabListaPrestaCodigo.isSelected()) {
             clasePrestamo = tablaPrestamo.getSelectionModel().getSelectedItem();
             if (clasePrestamo != null) {  //si no es NULL capturamos los datos de la fila
@@ -260,16 +262,14 @@ public class PrestamoVistaController implements Initializable {
                 tabSeleccionado = 1;
             }
             botonOffEditaElimina(false);
-        }
-        if (tabListaPrestaAlumno.isSelected()) {
+        } else if (tabListaPrestaAlumno.isSelected()) {
             clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
             if (clasePrestamoA != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoA = (ClassPrestamoAlumno) clasePrestamoA.clonar();
                 tabSeleccionado = 2;
             }
             botonOffEditaEliminaAlumno(false);
-        }
-        if (tabListaPrestaLibro.isSelected()) {
+        } else if (tabListaPrestaLibro.isSelected()) {
             clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
             if (clasePrestamoLibro != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoLibro = (ClassPrestamoLibro) clasePrestamoLibro.clonar();
@@ -278,18 +278,19 @@ public class PrestamoVistaController implements Initializable {
             botonOffEditaEliminaLibro(false);
         }
 
-        //PROCESAMOS COMO EDITAR si se pulsa 2 click con el ratón en algún registro de la tabla y el objeto no es nulo
-        if (event.getClickCount() == 2 && (clasePrestamo != null || clasePrestamoA != null || clasePrestamoLibro != null)) {
+        //PROCESAMOS COMO EDITAR si se pulsa 2 click con el ratón en algún registro de la tabla
+        if (event.getClickCount() == 2) {
             Variables.setTextoFrm("EDITAR PRÉSTAMO");  //Se usará posteriormente en el controlador FrmPrestamo
-            if (tabSeleccionado != 0) {
+            if (tabSeleccionado > 1) {
                 copiaPrestamo = convertirDatosClase(copiaPrestamoA, copiaPrestamoLibro); //usamos este método cuando la selección se realiza en tablas distintas a la general
-                this.cargarFrmPrestamo();
             }
+            this.cargarFrmPrestamo();
         }
     }
 
     @FXML
-    private void buscarPrestamoTabla(ActionEvent event) {
+    private void buscarPrestamoTabla(ActionEvent event
+    ) {
         if (tabListaPrestaCodigo.isSelected()) {
             botonOffEditaElimina(true);
             this.cargarTabla(txtFiltrarPrestamoTabla.getText());
@@ -323,30 +324,32 @@ public class PrestamoVistaController implements Initializable {
     private void editarPrestamoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
         Variables.setTextoFrm("EDITAR PRÉSTAMO");  //Se usará posteriormente en el controlador FrmPrestamo
-        if (tabSeleccionado != 0) {
+        if (tabSeleccionado > 1) {
             copiaPrestamo = convertirDatosClase(copiaPrestamoA, copiaPrestamoLibro); //usamos este método cuando la selección se realiza en tablas distintas a la general
-            this.cargarFrmPrestamo();
         }
+        this.cargarFrmPrestamo();
     }
 
     @FXML
     private void eliminarPrestamoTabla(ActionEvent event) {
         //guardamos en la variable el valor de la acción a ejecutar.
         Variables.setTextoFrm("ELIMINAR PRÉSTAMO");  //Se usará posteriormente en el controlador FrmPrestamo
-        if (tabSeleccionado != 0) {
+        if (tabSeleccionado > 1) {
             copiaPrestamo = convertirDatosClase(copiaPrestamoA, copiaPrestamoLibro); //usamos este método cuando la selección se realiza en tablas distintas a la general
-            this.cargarFrmPrestamo();
         }
+        this.cargarFrmPrestamo();
     }
 
     @FXML
     private void pulsoTabListaAlumno(Event event) {
         this.cargarTabla(""); //cargamos la tabla de préstamos alumnos
+
     }
 
     @FXML
     private void pulsoTabListaLibro(Event event) {
         this.cargarTabla(""); //cargamos la tabla de préstamos libros
+
     }
 
     private void cargarTabla(String filtro) {
@@ -459,10 +462,10 @@ public class PrestamoVistaController implements Initializable {
     }
 
     //Este método pasa los datos de ClassPrestamosAlumno o ClassPrestamoLibro a una de tipo ClassPrestamo = copiaPrestamo
-    private ClassPrestamo convertirDatosClase(ClassPrestamoAlumno clasePrestamoA, ClassPrestamoLibro clasePrestamoLibro) {
+    private ClassPrestamo convertirDatosClase(ClassPrestamoAlumno clasePrestamoA, ClassPrestamoLibro clasePrestamoL) {
+        copiaPrestamo = new ClassPrestamo();
         switch (tabSeleccionado) {
             case 1:
-                //no realizamos nada ya que no debemos convertir entre clases
                 break;
             case 2:
                 copiaPrestamo.setId(clasePrestamoA.getId());
@@ -491,15 +494,17 @@ public class PrestamoVistaController implements Initializable {
         //creamos una nueva ventana temporal capturando de cualquier btn/lbl la escena y ventana
         //se entiende que los btn o lbl forman parte de la ventana que deseamos obtener datos
         Stage myStage = (Stage) this.lblRegistros.getScene().getWindow();
-        posicionxy[0] = myStage.getX();
-        posicionxy[1] = myStage.getY();
+        int frmX = 800 / 2; //tamaño ancho componente FrmPrestamo
+        int frmY = 600 / 2; //tamaño alto componente FrmPrestamo
+        int x = (int) (myStage.getWidth() / 2);
+        int y = (int) (myStage.getHeight() / 2);
+        posicionxy[0] = myStage.getX() + (x - frmX);
+        posicionxy[1] = myStage.getY() + (y - frmY);
         return posicionxy;
     }
 
     private void ventanaPosicion() {
         posicion = obtenPosicionX_Y();
-        posicion[0] = posicion[0] + 110;
-        posicion[1] = posicion[1] - 30;
         stage.setX(posicion[0]);
         stage.setY(posicion[1]);
     }

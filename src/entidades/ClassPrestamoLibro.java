@@ -122,4 +122,9 @@ public class ClassPrestamoLibro implements ClonarClase {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "ClassPrestamoLibro{" + "id=" + id + ", fechapres=" + fechapres + ", fechadevo=" + fechadevo + ", codlibro=" + codlibro + ", titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", asignatura=" + asignatura + ", codalumno=" + codalumno + ", estado=" + estado + '}';
+    }
+
 }
