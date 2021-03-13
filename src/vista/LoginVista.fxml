@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -14,11 +15,11 @@
 
 <!-- xmlns="http://javafx.com/javafx/15.0.1" -->
 
-<AnchorPane id="AnchorPane" maxHeight="500.0" maxWidth="500.0" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" styleClass="JMetroStyleClass.BACKGROUND" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.LoginVistaController">
+<AnchorPane id="AnchorPane" maxHeight="500.0" maxWidth="500.0" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" styleClass="JMetroStyleClass.BACKGROUND" stylesheets="@css/estilos.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.LoginVistaController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="36.0" text="LOGIN DE ACCESO" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="36.0" prefHeight="68.0" prefWidth="332.0" text="LOGIN DE ACCESO" textAlignment="CENTER">
          <font>
-            <Font name="Microsoft Sans Serif" size="36.0" />
+            <Font name="Consolas" size="36.0" />
          </font>
       </Label>
       <Label layoutX="108.0" layoutY="340.0" text="Contraseña" wrapText="true">
@@ -28,10 +29,14 @@
       </Label>
       <TextField fx:id="txtUsuario" layoutX="181.0" layoutY="287.0" onKeyTyped="#teclaPulsada" promptText="Introduzca usuario" styleClass="JMetroStyleClass.BACKGROUND" />
       <PasswordField fx:id="txtPassword" layoutX="181.0" layoutY="335.0" onKeyTyped="#teclaPulsada" promptText="Introduzca contraseña" styleClass="JMetroStyleClass.BACKGROUND" />
-      <Button fx:id="btnAcceder" layoutX="205.0" layoutY="431.0" mnemonicParsing="false" onAction="#comprobarAcceder" prefHeight="25.0" prefWidth="100.0" text="Acceder">
+      <Button fx:id="btnAcceder" layoutX="205.0" layoutY="431.0" mnemonicParsing="false" onAction="#comprobarAcceder" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 5;" text="Acceder">
          <font>
             <Font name="Segoe UI" size="14.0" />
          </font>
+         <styleClass>
+            <String fx:value="button" />
+            <String fx:value="aceptar" />
+         </styleClass>
       </Button>
       <Group layoutX="97.0" layoutY="224.0" />
       <CheckBox fx:id="cboxLocal" layoutX="93.0" layoutY="388.0" mnemonicParsing="false" onAction="#comprobarChbox" text="MySQL Local">

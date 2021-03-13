@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.image.Image;
 import jfxtras.styles.jmetro.JMetro;
 
 public class Main extends Application {
@@ -15,6 +16,7 @@ public class Main extends Application {
     private static Scene scene;   //donde se produce la acción con los elementos creados
     private static Stage stage;   //el maro de la ventana actual
     private static JMetro jMetro; //para aplicar efectos de ventana de manera simple
+
     /*       Para compartir datos entre ventanas (sobre todo de ventanas hijas a padres) es complejo. Para lo cual vamos hacer uso de
     *        una nueva librería EventBus. Dicha librería nos ofrece métodos y soluciones actuales.
     *        https://greenrobot.org/eventbus/
@@ -47,6 +49,8 @@ public class Main extends Application {
         jMetro.setScene(scene);
         //Cargamos el resto de componentes de la vista
         stage.setTitle("Creado en JavaFX");
+        //Cargamos el icono en la ventana
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
         stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
         stage.show(); //mostramos la ventana
         System.out.println("Método start()");

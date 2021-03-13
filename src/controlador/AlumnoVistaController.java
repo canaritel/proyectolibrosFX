@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -223,6 +224,7 @@ public class AlumnoVistaController implements Initializable {
             this.cambiarOpacidad(0.5);
             stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
             stage.initStyle(StageStyle.UTILITY); //desactivamos maximinar y minimizar
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
             //Pasamos los datos a la nueva ventana FrmAlumno mientras sea distinto a CREAR ALUMNO (se usará para EDITAR/ELIMINAR)
             if (!"CREAR ALUMNO".equals(Variables.getTextoFrm())) {
                 ctrFrmAlumno.pasarDatos(copiaAlumno);

@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
@@ -176,6 +177,8 @@ public class LoginVistaController implements Initializable {
             //Activamos el estilo JMetro, hemos importado la librería que mejora la visualización
             //jMetro = new JMetro(jfxtras.styles.jmetro.Style.LIGHT);
             //jMetro.setScene(scene);
+            //Cargamos el icono en la ventana
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
             //Cargamos el resto de componentes de la vista
             stage.show();   //mostramos la nueva ventana
             //Al activar la nueva ventana es prefirible cerrar la ventana anterior abierta, para lo cual vamos a realizar los siguientes pasos
@@ -193,8 +196,8 @@ public class LoginVistaController implements Initializable {
     public double[] posicionX_Y() {
         double[] posicion = new double[2];
         Stage myStage = (Stage) this.btnAcceder.getScene().getWindow();
-        posicion[0] = myStage.getX();
-        posicion[1] = myStage.getY();
+        posicion[0] = myStage.getX() + 50;
+        posicion[1] = myStage.getY() + 40;
         return posicion;
     }
 

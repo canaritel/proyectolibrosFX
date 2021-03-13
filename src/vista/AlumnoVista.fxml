@@ -167,7 +167,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label fx:id="lblRegistros" alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="402.0" text="Mostrando 17 de un total de 222 registros" textAlignment="RIGHT">
+            <Label fx:id="lblRegistros" alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="402.0" text="Mostrando 17 de un total de 222 registros" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                <padding>
                   <Insets bottom="5.0" left="10.0" right="10.0" />
                </padding>

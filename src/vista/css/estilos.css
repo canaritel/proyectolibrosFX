@@ -1,0 +1,34 @@
+
+.button {
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.aceptar {
+    -fx-background-color: #009e2e;
+}
+
+.aceptar:hover {
+    -fx-background-color: #00d02b;
+}
+
+.textfield {
+    -fx-background-color: #fbfbfb;
+}
+
+.textfield:focused {
+    -fx-background-color: white;
+}
+
+.combo.list-cell {
+    -fx-text-fill: grey;
+}
+
+.combo.list-cell:hover {
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+#AnchorPane {
+    -fx-background-image: url('/imagenes/fondo_blanco.jpg')  
+}

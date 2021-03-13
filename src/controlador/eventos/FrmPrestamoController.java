@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -151,6 +152,7 @@ public class FrmPrestamoController implements Initializable {
             stage.setTitle("Gestión de Alumnos"); //ponemos un título
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
             //posicionamos la nueva ventana
             this.ventanaPosicion(-140, 60);
             //cambiamos la opacidad de la ventana 
@@ -183,6 +185,7 @@ public class FrmPrestamoController implements Initializable {
             stage.setTitle("Gestión de Libros"); //ponemos un título
             stage.initModality(Modality.APPLICATION_MODAL);  //hacemos que la escena nueva tome el foco y no permita cambiarse de ventana
             stage.setScene(scene); //establecemos la escena
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
             //posicionamos la nueva ventana
             this.ventanaPosicion(-140, 60);
             //cambiamos la opacidad de la ventana 

@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -221,7 +222,6 @@ public class PrestamoVistaController implements Initializable {
             }
             botonOffEditaElimina(false);
         }
-
         if (tabListaPrestaAlumno.isSelected()) {
             clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
             if (clasePrestamoA != null) {  //si no es NULL capturamos los datos de la fila
@@ -230,7 +230,6 @@ public class PrestamoVistaController implements Initializable {
             }
             botonOffEditaEliminaAlumno(false);
         }
-
         if (tabListaPrestaLibro.isSelected()) {
             clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
             if (clasePrestamoLibro != null) {  //si no es NULL capturamos los datos de la fila
@@ -262,14 +261,16 @@ public class PrestamoVistaController implements Initializable {
                 tabSeleccionado = 1;
             }
             botonOffEditaElimina(false);
-        } else if (tabListaPrestaAlumno.isSelected()) {
+        }
+        if (tabListaPrestaAlumno.isSelected()) {
             clasePrestamoA = tablaPrestamoA.getSelectionModel().getSelectedItem();
             if (clasePrestamoA != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoA = (ClassPrestamoAlumno) clasePrestamoA.clonar();
                 tabSeleccionado = 2;
             }
             botonOffEditaEliminaAlumno(false);
-        } else if (tabListaPrestaLibro.isSelected()) {
+        }
+        if (tabListaPrestaLibro.isSelected()) {
             clasePrestamoLibro = tablaPrestamoLibro.getSelectionModel().getSelectedItem();
             if (clasePrestamoLibro != null) {  //si no es NULL capturamos los datos de la fila
                 copiaPrestamoLibro = (ClassPrestamoLibro) clasePrestamoLibro.clonar();
@@ -395,6 +396,7 @@ public class PrestamoVistaController implements Initializable {
             this.cambiarOpacidad(0.5);
             stage.setResizable(false); //no permitimos que la ventana cambie de tamaño
             stage.initStyle(StageStyle.UTILITY); //desactivamos maximinar y minimizar
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
             //Pasamos los datos a la nueva ventana FrmAlumno
             if (!"CREAR PRÉSTAMO".equals(Variables.getTextoFrm())) {
                 ctrFrmPrestamo.pasarDatos(copiaPrestamo);

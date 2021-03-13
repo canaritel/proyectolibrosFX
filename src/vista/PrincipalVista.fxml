@@ -380,7 +380,7 @@
                         </ImageView>
                      </graphic></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cerrar">
+                  <MenuItem fx:id="mnuiCerrarAccesos" mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -440,7 +440,7 @@
                         </ImageView>
                      </graphic></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cerrar">
+                  <MenuItem fx:id="mnuiCerrarReportes" mnemonicParsing="false" onAction="#CerrarVentana" text="Cerrar">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -505,11 +505,11 @@
             <Insets />
          </VBox.margin>
     </MenuBar>
-      <VBox fx:id="vboxPrincipal" VBox.vgrow="ALWAYS">
+      <VBox fx:id="vboxPrincipal" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <children>
-            <HBox alignment="BASELINE_CENTER" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="565.0" fitWidth="896.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
+                  <ImageView fitHeight="565.0" fitWidth="896.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagenes/logo%20javafx2.png" />
                      </image>
