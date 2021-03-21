@@ -162,7 +162,9 @@ public class FrmPrestamoController implements Initializable {
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
             Variables.setOffBotonesAlumnos(0); //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Alumno
-            pasaDatosAlumnoInfo();  //pasamos los datos capturados a los campos textfield de información adicional
+            if (Variables.getCodigoAlumno() != null) {
+                pasaDatosAlumnoInfo();  //pasamos los datos capturados a los campos textfield de información adicional
+            }
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
@@ -195,7 +197,9 @@ public class FrmPrestamoController implements Initializable {
             //Cuando regresemos quitamos la opacidad
             this.cambiarOpacidad(1);
             Variables.setOffBotonesLibros(0); //ponemos a 0 la variable general que activa/desactiva los botones dentro de la ventana Libro
-            pasaDatosLibroInfo();
+            if (Variables.getCodigoLibro() != null) {
+                pasaDatosLibroInfo();
+            }
         } catch (IOException ex) {
             System.err.println("Error en el inicio validado " + ex);
         }
@@ -209,8 +213,10 @@ public class FrmPrestamoController implements Initializable {
 
     @FXML
     private void grabarLibro(ActionEvent event) {
-        if (comprobarDatos()) {
-            guardarDatos();
+        if (txtCodAlumnoPresta != null) {
+            if (comprobarDatos()) {
+                guardarDatos();
+            }
         }
     }
 
@@ -342,14 +348,12 @@ public class FrmPrestamoController implements Initializable {
             cmbEstado.requestFocus(); //llevo el 'foco' al campo
             return false;  //devuelvo el código y no continuo
         }
-
         //comprobamos que la fecha devolución sea mayor a la fecha de préstamo
         if (!this.ComparaFecha(txtFechaPrestamoPresta.getText(), txtFechaDevoPresta.getText())) {
             MensajeFX.printTexto("El campo 'Fecha Devolución' no puede ser igual o menor al campo 'Fecha Préstamo'", "WARNING", posicionX_Y());
             dateFechaDevolucion.requestFocus(); //llevo el 'foco' al campo
             return false; //devuelvo el código y no continuo 
         }
-
         return true;
     }
 

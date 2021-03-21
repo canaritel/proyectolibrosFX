@@ -20,13 +20,13 @@ public class Variables {
         Variables.dni = "";
         Variables.apellido1 = "";
         Variables.apellido2 = "";
-        Variables.codigoAlumno = "";
+        Variables.codigoAlumno = null;
 
         Variables.titulo = "";
         Variables.autor = "";
         Variables.editorial = "";
         Variables.asignatura = "";
-        Variables.codigoLibro = "";
+        Variables.codigoLibro = null;
     }
 
     //Creamos los Getter y Setter de los datos a compartir en la aplicación

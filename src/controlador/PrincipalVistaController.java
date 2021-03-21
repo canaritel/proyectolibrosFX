@@ -8,7 +8,6 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -36,7 +35,6 @@ public class PrincipalVistaController implements Initializable {
     private static Scene scene;   //variable de clase Scene donde se produce la acción con los elementos creados
     private static Stage stage;   //variable de clase Stage que es la ventana actual
     private double[] posicion;  //posición de la ventana en eje X-Y
-    //String cargarVista; //elejimos que tipo de vista cargamos
     private VBox ventana; //creamos un objeto de tipo VBox (Todas nuestras ventanas hijas comienzan por este tipo de elemento)
     private ImageView imageView;
     private Image fondoImagen;
