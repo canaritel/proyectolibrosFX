@@ -153,8 +153,7 @@ public class AlumnoVistaController implements Initializable {
     }
 
     @FXML
-    private void buscarAlumnoTabla(ActionEvent event
-    ) {
+    private void buscarAlumnoTabla(ActionEvent event) {
         offOnBotones(true);
         this.cargarTabla(txtFiltrarAlumnoTabla.getText());
     }

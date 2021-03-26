@@ -17,13 +17,6 @@ public class Main extends Application {
     private static Stage stage;   //el maro de la ventana actual
     private static JMetro jMetro; //para aplicar efectos de ventana de manera simple
 
-    /*       Para compartir datos entre ventanas (sobre todo de ventanas hijas a padres) es complejo. Para lo cual vamos hacer uso de
-    *        una nueva librería EventBus. Dicha librería nos ofrece métodos y soluciones actuales.
-    *        https://greenrobot.org/eventbus/
-    *        https://github.com/greenrobot/EventBus#add-eventbus-to-your-project
-     */
-    //public static EventBus eventos = new EventBus();  //declaramos un objeto EventBus especial para compartir datos entre ventanas
-
     @Override
     public void init() {  //Primer método que se ejecuta al instanciar la clase
         //Usado para validaciones con bases de datos

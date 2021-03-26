@@ -180,6 +180,8 @@ public class LoginVistaController implements Initializable {
             //Cargamos el icono en la ventana
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/icons8_java_duke_50px.png")));
             //Cargamos el resto de componentes de la vista
+            stage.setMinWidth(800);
+            stage.setMinHeight(600);
             stage.show();   //mostramos la nueva ventana
             //Al activar la nueva ventana es prefirible cerrar la ventana anterior abierta, para lo cual vamos a realizar los siguientes pasos
             //******* Para cerrar la ventana "anterior" realizamos estos pasos *******

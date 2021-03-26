@@ -15,15 +15,12 @@ public class AlumnoNegocio {
         Variables.setRegistrosMostrados(0);
     }
 
-    public String insertar(String dni, String nombre, String apellido1, String apellido2) throws SQLException {
+    public String insertar(ClassAlumno objeto) throws SQLException {
         //comprobamos si existe el DNI a insertar
-        if (DATOS.existe(dni)) {
+        if (DATOS.existe(objeto.getDni())) {
             return "El registro con ese DNI ya existe";
         } else {
-            objeto.setDni(dni);
-            objeto.setNombre(nombre);
-            objeto.setApellido1(apellido1);
-            objeto.setApellido2(apellido2);
+
             if (DATOS.insertar(objeto)) {
                 return "OK";
             } else {
@@ -32,28 +29,18 @@ public class AlumnoNegocio {
         }
     }
 
-    public String actualizar(int registro, String dni, String dniAnterior, String nombre, String apellido1, String apellido2) throws SQLException {
+    public String actualizar(ClassAlumno objeto, String dniAnterior) throws SQLException {
         //si el nuevo DNI es igual al anterior permitimos la actualización
-        if (dni.equals(dniAnterior)) {
-            objeto.setIdRegistro(registro);
-            objeto.setDni(dni);
-            objeto.setNombre(nombre);
-            objeto.setApellido1(apellido1);
-            objeto.setApellido2(apellido2);
+        if (objeto.getDni().equals(dniAnterior)) {
             if (DATOS.actualizar(objeto)) {
                 return "OK";
             } else {
                 return "Error en la actualización";
             }
         } else {
-            if (DATOS.existe(dni)) {
+            if (DATOS.existe(objeto.getDni())) {
                 return "El registro con ese DNI ya existe";
             } else {
-                objeto.setIdRegistro(registro);
-                objeto.setDni(dni);
-                objeto.setNombre(nombre);
-                objeto.setApellido1(apellido1);
-                objeto.setApellido2(apellido2);
                 if (DATOS.actualizar(objeto)) {
                     return "OK";
                 } else {

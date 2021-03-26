@@ -21,7 +21,8 @@ public class FrmAlumnoController implements Initializable {
 
     private AlumnoNegocio CONTROL;  //instanciamos nuestra clase para realizar CRUD
     private int idRegistro;
-    String dniAnterior;
+    private String dniAnterior;
+    private ClassAlumno objeto;
 
     @FXML
     private TextField txtDni;
@@ -84,7 +85,7 @@ public class FrmAlumnoController implements Initializable {
         txtApellido2.setText(objAlumno.getApellido2());
     }
 
-    public boolean comprobarDatos() {
+    private boolean comprobarDatos() {
         //Comprobamos los campos no estén vacíos
         if (txtDni.getText().isEmpty()) {
             MensajeFX.printTexto("El campo 'DNI' está vacío", "WARNING", posicionX_Y());
@@ -131,8 +132,7 @@ public class FrmAlumnoController implements Initializable {
         try {
             switch (Variables.getTextoFrm()) {
                 case "CREAR ALUMNO":
-                    respuesta = this.CONTROL.insertar(txtDni.getText().strip().toUpperCase(), txtNombre.getText().strip().toUpperCase(),
-                                                      txtApellido1.getText().strip().toUpperCase(), txtApellido2.getText().strip().toUpperCase());
+                    respuesta = this.CONTROL.insertar(convertirStringToObjeto());
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Alumno añadido correctamente", "INFO", posicionX_Y());
                         this.limpiar();
@@ -143,8 +143,7 @@ public class FrmAlumnoController implements Initializable {
                     break;
 
                 case "EDITAR ALUMNO":
-                    respuesta = this.CONTROL.actualizar(idRegistro, txtDni.getText().strip().toUpperCase(), dniAnterior, txtNombre.getText().strip().toUpperCase(),
-                                                        txtApellido1.getText().strip().toUpperCase(), txtApellido2.getText().strip().toUpperCase());
+                    respuesta = this.CONTROL.actualizar(convertirStringToObjeto(), dniAnterior);                                                        
                     if ("OK".equals(respuesta)) {
                         MensajeFX.printTexto("Alumno editado correctamente", "INFO", posicionX_Y());
                         this.limpiar();
@@ -175,7 +174,7 @@ public class FrmAlumnoController implements Initializable {
 
     //este método obtiene la posición de la actual ventana en coordenadas x, y
     //vamos a usar estos datos para posicionar la ventana de mensajes en la pantalla correctamente
-    public double[] posicionX_Y() {
+    private double[] posicionX_Y() {
         double[] posicion = new double[2];
         Stage myStage = (Stage) this.txtDni.getScene().getWindow();
         int frmX = 420 / 2; //tamaño ancho componente FrmAlumno
@@ -188,7 +187,7 @@ public class FrmAlumnoController implements Initializable {
         return posicion;
     }
 
-    public void limpiar() {
+    private void limpiar() {
         idRegistro = 0;
         txtDni.setText("");
         txtNombre.setText("");
@@ -196,9 +195,19 @@ public class FrmAlumnoController implements Initializable {
         txtApellido2.setText("");
     }
 
-    public void cerrarVentana() {
+    private void cerrarVentana() {
         Stage myStage = (Stage) this.txtDni.getScene().getWindow();
         myStage.close();
+    }
+
+    private ClassAlumno convertirStringToObjeto() {
+        this.objeto = new ClassAlumno();
+        objeto.setIdRegistro(idRegistro);
+        objeto.setDni(txtDni.getText().strip().toUpperCase());
+        objeto.setNombre(txtNombre.getText().strip().toUpperCase());
+        objeto.setApellido1(txtApellido1.getText().strip().toUpperCase());
+        objeto.setApellido2(txtApellido2.getText().strip().toUpperCase());
+        return objeto;
     }
 
 }
