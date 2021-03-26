@@ -17,7 +17,7 @@ Fichero .sh para Linux:
     java --module-path "./lib" --add-modules javafx.controls,javafx.fxml -jar appFX.jar
 
 Tienen más información en mi canal de Youtube, donde se explica el proyecto, librerías y funciones.
-https://www.youtube.com/watch?v=g3iih2picyc&list=PLzR9zFokHj4FGO6VcEyAflqURRPT5H2GK
+https://youtu.be/6EQGm4BxK2o
 
 Las versiones de Java:
 - Java 11 LTS (JDK y JRE) https://adoptopenjdk.net/
